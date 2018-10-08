@@ -4,6 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/www.resale.com/routes/web.php</file>
+            <file>file:/C:/xampp/htdocs/www.resale.com/resources/views/admin/includes/menu.blade.php</file>
+            <file>file:/C:/xampp/htdocs/www.resale.com/app/Http/Kernel.php</file>
+            <file>file:/C:/xampp/htdocs/www.resale.com/app/Http/Controllers/Admin/AdminHomeController.php</file>
+            <file>file:/C:/xampp/htdocs/www.resale.com/resources/views/admin/home/homeContent.blade.php</file>
+            <file>file:/C:/xampp/htdocs/www.resale.com/app/Http/Controllers/FrontEnd/InternalFilterController.php</file>
         </group>
     </open-files>
 </project-private>

@@ -123,7 +123,7 @@ Create Profile Info
                                     </div>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="divisions" id="divisions">
-                                            <option disable="true" selected="true"> Select Division </option>
+                                            <option value="" disable="true" selected="true"> Select Division </option>
                                             @foreach ($divisions as $division)
                                             <option value="{{$division->id}}">{{ $division->divisionName }}</option>
                                             @endforeach
@@ -138,7 +138,7 @@ Create Profile Info
                                     </div>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="districts" id="districts">
-                                            <option disable="true" selected="true"> Select District </option>
+                                            <option value="" disable="true" selected="true"> Select District </option>
                                         </select>
                                         <span class="text-danger">{{$errors->has('districts')?$errors->first('districts'):''}}</span>
                                     </div>
@@ -149,7 +149,7 @@ Create Profile Info
                                     </div>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="upazilas" id="upazilas">
-                                            <option disable="true" selected="true"> Select Upazila </option>
+                                            <option value="" disable="true" selected="true"> Select Upazila </option>
                                         </select>
                                         <span class="text-danger">{{$errors->has('upazilas')?$errors->first('upazilas'):''}}</span>
                                     </div>
@@ -267,7 +267,7 @@ Create Profile Info
             $.get("{{url('/json-districts')}}?division_id=" + division_id, function (data) {
                 console.log(data);
                 $('#districts').empty();
-                $('#districts').append('<option disable="true" selected="true"> Select District </option>');
+                $('#districts').append('<option value="" disable="true" selected="true"> Select District </option>');
 
                 $.each(data, function (index, districtsObj) {
                     $('#districts').append('<option value="' + districtsObj.id + '">' + districtsObj.districtName + '</option>');
@@ -280,7 +280,7 @@ Create Profile Info
             $.get("{{url('/json-upazilas')}}?district_id=" + district_id, function (data) {
                 console.log(data);
                 $('#upazilas').empty();
-                $('#upazilas').append('<option disable="true" selected="true"> Select Upazila </option>');
+                $('#upazilas').append('<option value="" disable="true" selected="true"> Select Upazila </option>');
 
                 $.each(data, function (index, UpazialsObj) {
                     $('#upazilas').append('<option value="' + UpazialsObj.id + '">' + UpazialsObj.upazilaName + '</option>');

@@ -35,7 +35,16 @@
                     </tr>
                     <tr>
                         <td>Gender: </td>
-                        <td>{{$userInfo->gender == 1 ? 'Men':'Women' }}</td>
+                        <td>
+                            @if($userInfo->gender === 0)
+                            {{'Women'}}
+                            @elseif($userInfo->gender === 1)
+                            {{'Men'}}
+                            @elseif($userInfo->gender === 2)
+                            {{'Others'}}
+                            @else
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <td>Home Address</td>
@@ -66,7 +75,14 @@
                     </tr>
                     <tr>
                         <td>User Category</td>
-                        <td>{{$userInfo->userCategory == 1 ? 'Professional Business Purpose':'Personal Business Purpose' }}</td>
+                        <td>
+                        @if($userInfo->userCategory === 1)
+                        {{'Professional Business Purpose'}}
+                        @elseif($userInfo->userCategory === 0)
+                        {{'Personal Business Purpose'}}
+                        @else
+                        @endif
+                        </td>
                     </tr>
                     <tr>
                         <td>Phone Number</td>

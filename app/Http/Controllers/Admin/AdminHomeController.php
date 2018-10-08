@@ -4,6 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\User;
+use App\Category;
+use App\SubCategory;
+use App\Comment;
+use App\AuctionDetail;
+use App\AuctionCategory;
+use App\AuctionPlace;
+use App\AuctionImage;
+use App\SellerDetail;
+use DB;
 
 class AdminHomeController extends Controller
 {
@@ -24,6 +34,10 @@ class AdminHomeController extends Controller
      */
     public function index()
     {
-        return view('admin.home.homeContent');
+        $users = User::count();
+        $category = Category::count();
+        $auctions = AuctionDetail::count();
+        
+        return view('admin.home.homeContent', ['users' => $users, 'category' => $category, 'auctions' => $auctions]);
     }
 }

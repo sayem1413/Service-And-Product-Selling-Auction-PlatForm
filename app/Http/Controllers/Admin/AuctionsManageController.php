@@ -15,6 +15,7 @@ use App\AuctionCategory;
 use App\AuctionPlace;
 use App\AuctionImage;
 use App\SellerDetail;
+use App\Comment;
 use DB;
 use Intervention\Image\Facades\Image;
 
@@ -57,7 +58,13 @@ class AuctionsManageController extends Controller
         $auction_places = AuctionPlace::where('auction_id', $id)->first();
         $auctionImage = AuctionImage::where('auction_id', $id)->first();
         $sellerDetail = SellerDetail::where('auction_id', $id)->first();
-
+        $comments = Comment::where('auction_id', $id)->get();
+        if($comments){
+            foreach ($comments as $comment) {
+                $comment->delete();
+            }
+        }
+        
         $adImage1 = $auctionImage->adImage1;
         $adImage2 = $auctionImage->adImage2;
         $adImage3 = $auctionImage->adImage3;

@@ -127,7 +127,7 @@ Edit Profile page
                                     </div>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="divisions" id="divisions">
-                                            <option disable="true" selected="true"> Select Division </option>
+                                            <option value="" disable="true" selected="true"> Select Division </option>
                                             @foreach ($divisions as $division)
                                             <option value="{{$division->id}}">{{ $division->divisionName }}</option>
                                             @endforeach
@@ -150,7 +150,7 @@ Edit Profile page
                                     </div>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="districts" id="districts">
-                                            <option value="0" disable="true" selected="true"> Select District </option>
+                                            <option value="" disable="true" selected="true"> Select District </option>
                                         </select>
                                         <span class="text-danger">{{$errors->has('districts')?$errors->first('districts'):''}}</span>
                                     </div>
@@ -169,7 +169,7 @@ Edit Profile page
                                     </div>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="upazilas" id="upazilas">
-                                            <option value="0" disable="true" selected="true"> Select Upazila </option>
+                                            <option value="" disable="true" selected="true"> Select Upazila </option>
                                         </select>
                                         <span class="text-danger">{{$errors->has('upazilas')?$errors->first('upazilas'):''}}</span>
                                     </div>
@@ -181,7 +181,7 @@ Edit Profile page
                                     </div>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="districts" id="districts">
-                                            <option value="0" disable="true" selected="true"> Select District </option>
+                                            <option value="" disable="true" selected="true"> Select District </option>
                                         </select>
                                         <span class="text-danger">{{$errors->has('districts')?$errors->first('districts'):''}}</span>
                                     </div>
@@ -192,7 +192,7 @@ Edit Profile page
                                     </div>
                                     <div class="col-sm-8">
                                         <select class="form-control" name="upazilas" id="upazilas">
-                                            <option value="0" disable="true" selected="true"> Select Upazila </option>
+                                            <option value="" disable="true" selected="true"> Select Upazila </option>
                                         </select>
                                         <span class="text-danger">{{$errors->has('upazilas')?$errors->first('upazilas'):''}}</span>
                                     </div>
@@ -240,10 +240,10 @@ Edit Profile page
                                         <label for="title">Personal/Business account</label>
                                     </div>
                                     <div class="col-sm-2">
-                                        <label><input type="radio" id="userCategory" name="userCategory" value="0"{{$userInfo->userCategory == 0 ? 'checked' : ''}}>  Personal</label>
+                                        <label><input type="radio" id="userCategory" name="userCategory" value="0{{$userInfo->userCategory == 0 ? 'checked' : ''}}">  Personal</label>
                                     </div>
                                     <div class="col-sm-2">
-                                        <label><input type="radio" id="userCategory" name="userCategory" value="1"{{$userInfo->userCategory == 1 ? 'checked' : ''}}>  Business</label>
+                                        <label><input type="radio" id="userCategory" name="userCategory" value="1{{$userInfo->userCategory == 1 ? 'checked' : ''}}">  Business</label>
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="text-danger">{{$errors->has('userCategory')?$errors->first('userCategory'):''}}</span>
@@ -254,13 +254,13 @@ Edit Profile page
                                         <label for="title">Gender</label>
                                     </div>
                                     <div class="col-sm-2">
-                                        <label><input type="radio" id="gender" name="gender" value="1"{{$userInfo->gender == 1 ? 'checked' : ''}}>  Male</label>
+                                        <label><input type="radio" id="gender" name="gender" value="1{{$userInfo->gender == 1 ? 'checked' : ''}}">  Male</label>
                                     </div>
                                     <div class="col-sm-2">
-                                        <label><input type="radio" id="gender" name="gender" value="0"{{$userInfo->gender == 0 ? 'checked' : ''}}>  Female</label>
+                                        <label><input type="radio" id="gender" name="gender" value="0{{$userInfo->gender == 0 ? 'checked' : ''}}">  Female</label>
                                     </div>
                                     <div class="col-sm-2">
-                                        <label><input type="radio" id="gender" name="gender" value="2"{{$userInfo->gender == 2 ? 'checked' : ''}}>  Others</label>
+                                        <label><input type="radio" id="gender" name="gender" value="2{{$userInfo->gender == 2 ? 'checked' : ''}}">  Others</label>
                                     </div>
                                     <div class="col-sm-2">
                                         <span class="text-danger">{{$errors->has('gender')?$errors->first('gender'):''}}</span>
@@ -321,7 +321,7 @@ Edit Profile page
             $.get("{{url('/json-districts')}}?division_id=" + division_id, function (data) {
                 console.log(data);
                 $('#districts').empty();
-                $('#districts').append('<option value="0" disable="true" selected="true"> Select District </option>');
+                $('#districts').append('<option value="" disable="true" selected="true"> Select District </option>');
 
                 $.each(data, function (index, districtsObj) {
                     $('#districts').append('<option value="' + districtsObj.id + '">' + districtsObj.districtName + '</option>');
@@ -334,7 +334,7 @@ Edit Profile page
             $.get("{{url('/json-upazilas')}}?district_id=" + district_id, function (data) {
                 console.log(data);
                 $('#upazilas').empty();
-                $('#upazilas').append('<option value="0" disable="true" selected="true"> Select Upazila </option>');
+                $('#upazilas').append('<option value="" disable="true" selected="true"> Select Upazila </option>');
 
                 $.each(data, function (index, UpazialsObj) {
                     $('#upazilas').append('<option value="' + UpazialsObj.id + '">' + UpazialsObj.upazilaName + '</option>');

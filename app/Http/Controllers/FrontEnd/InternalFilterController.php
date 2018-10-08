@@ -58,10 +58,18 @@ class InternalFilterController extends Controller
         $district_id = Session::get('districts');
         $upazila_id = Session::get('upazilas');
         
+        if(empty($amountMax) && empty($amountMin) && empty($date) && $subcategory_id == 0 && $district_id == 0 && $upazila_id == 0) {
+            $searchResults = DB::table('all_auction_details_views')
+                            ->select('all_auction_details_views.*')
+                            ->orderBy('all_auction_details_views.created_at', 'DESC')
+                            ->paginate(5);
+             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
+        }
         
         if(empty($amountMin) && empty($date) && $subcategory_id == 0 && $district_id == 0 && $upazila_id == 0){
             $searchResults = DB::table('all_auction_details_views')
                             ->where('all_auction_details_views.price', '<=', $amountMax)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.price', 'ASC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -70,6 +78,7 @@ class InternalFilterController extends Controller
         if(empty($amountMax) && empty($date) && $subcategory_id == 0 && $district_id == 0 && $upazila_id == 0){
             $searchResults = DB::table('all_auction_details_views')
                             ->where('all_auction_details_views.price', '>=', $amountMin)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.price', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -79,6 +88,7 @@ class InternalFilterController extends Controller
             $searchResults = DB::table('all_auction_details_views')
                             ->where('all_auction_details_views.price', '<=', $amountMax)
                             ->where('all_auction_details_views.price', '>=', $amountMin)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.price', 'ASC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -88,6 +98,7 @@ class InternalFilterController extends Controller
         {
             $searchResults = DB::table('all_auction_details_views')
                             ->whereDate('all_auction_details_views.created_at', $date)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -96,6 +107,7 @@ class InternalFilterController extends Controller
         if(empty($amountMax) && empty($amountMin) && empty($date) && $district_id == 0 && $upazila_id == 0) {
             $searchResults = DB::table('all_auction_details_views')
                             ->where('all_auction_details_views.subcategory_id', $subcategory_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -104,6 +116,7 @@ class InternalFilterController extends Controller
         if(empty($amountMax) && empty($amountMin) && empty($date) && $subcategory_id == 0 && $upazila_id == 0){
             $searchResults = DB::table('all_auction_details_views')
                             ->where('all_auction_details_views.district_id', $district_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -113,6 +126,7 @@ class InternalFilterController extends Controller
             $searchResults = DB::table('all_auction_details_views')
                             ->where('all_auction_details_views.district_id', $district_id)
                             ->where('all_auction_details_views.upazila_id', $upazila_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -123,6 +137,7 @@ class InternalFilterController extends Controller
                             ->where('all_auction_details_views.subcategory_id', $subcategory_id)
                             ->where('all_auction_details_views.district_id', $district_id)
                             ->where('all_auction_details_views.upazila_id', $upazila_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -134,6 +149,7 @@ class InternalFilterController extends Controller
                             ->where('all_auction_details_views.subcategory_id', $subcategory_id)
                             ->where('all_auction_details_views.district_id', $district_id)
                             ->where('all_auction_details_views.upazila_id', $upazila_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -146,6 +162,7 @@ class InternalFilterController extends Controller
                             ->where('all_auction_details_views.subcategory_id', $subcategory_id)
                             ->where('all_auction_details_views.district_id', $district_id)
                             ->where('all_auction_details_views.upazila_id', $upazila_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -159,6 +176,7 @@ class InternalFilterController extends Controller
                             ->where('all_auction_details_views.subcategory_id', $subcategory_id)
                             ->where('all_auction_details_views.district_id', $district_id)
                             ->where('all_auction_details_views.upazila_id', $upazila_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -171,6 +189,7 @@ class InternalFilterController extends Controller
                             ->where('all_auction_details_views.subcategory_id', $subcategory_id)
                             ->where('all_auction_details_views.district_id', $district_id)
                             ->where('all_auction_details_views.upazila_id', $upazila_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -182,6 +201,7 @@ class InternalFilterController extends Controller
                             ->where('all_auction_details_views.subcategory_id', $subcategory_id)
                             ->where('all_auction_details_views.district_id', $district_id)
                             ->where('all_auction_details_views.upazila_id', $upazila_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -192,6 +212,7 @@ class InternalFilterController extends Controller
                             ->where('all_auction_details_views.price', '<=', $amountMax)
                             ->where('all_auction_details_views.district_id', $district_id)
                             ->where('all_auction_details_views.upazila_id', $upazila_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -201,6 +222,7 @@ class InternalFilterController extends Controller
             $searchResults = DB::table('all_auction_details_views')
                             ->where('all_auction_details_views.price', '<=', $amountMax)
                             ->where('all_auction_details_views.district_id', $district_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -210,6 +232,7 @@ class InternalFilterController extends Controller
             $searchResults = DB::table('all_auction_details_views')
                             ->where('all_auction_details_views.price', '>=', $amountMin)
                             ->whereDate('all_auction_details_views.created_at', $date)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -220,6 +243,7 @@ class InternalFilterController extends Controller
                             ->where('all_auction_details_views.price', '>=', $amountMin)
                             ->whereDate('all_auction_details_views.created_at', $date)
                             ->where('all_auction_details_views.subcategory_id', $subcategory_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -232,6 +256,7 @@ class InternalFilterController extends Controller
                             ->whereDate('all_auction_details_views.created_at', $date)
                             ->where('all_auction_details_views.subcategory_id', $subcategory_id)
                             ->where('all_auction_details_views.district_id', $district_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -243,6 +268,7 @@ class InternalFilterController extends Controller
                             ->where('all_auction_details_views.subcategory_id', $subcategory_id)
                             ->where('all_auction_details_views.district_id', $district_id)
                             ->where('all_auction_details_views.upazila_id', $upazila_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -255,6 +281,7 @@ class InternalFilterController extends Controller
                             ->whereDate('all_auction_details_views.created_at', $date)
                             ->where('all_auction_details_views.district_id', $district_id)
                             ->where('all_auction_details_views.upazila_id', $upazila_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -266,6 +293,7 @@ class InternalFilterController extends Controller
                             ->where('all_auction_details_views.price', '>=', $amountMin)
                             ->whereDate('all_auction_details_views.created_at', $date)
                             ->where('all_auction_details_views.subcategory_id', $subcategory_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -277,6 +305,7 @@ class InternalFilterController extends Controller
                             ->where('all_auction_details_views.price', '<=', $amountMax)
                             ->where('all_auction_details_views.price', '>=', $amountMin)
                             ->whereDate('all_auction_details_views.created_at', $date)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -288,6 +317,7 @@ class InternalFilterController extends Controller
                             ->where('all_auction_details_views.price', '>=', $amountMin)
                             ->whereDate('all_auction_details_views.created_at', $date)
                             ->where('all_auction_details_views.subcategory_id', $subcategory_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -300,6 +330,7 @@ class InternalFilterController extends Controller
                             ->whereDate('all_auction_details_views.created_at', $date)
                             ->where('all_auction_details_views.subcategory_id', $subcategory_id)
                             ->where('all_auction_details_views.district_id', $district_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -309,6 +340,7 @@ class InternalFilterController extends Controller
             $searchResults = DB::table('all_auction_details_views')
                             ->where('all_auction_details_views.price', '<=', $amountMax)
                             ->where('all_auction_details_views.subcategory_id', $subcategory_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -319,6 +351,7 @@ class InternalFilterController extends Controller
                             ->where('all_auction_details_views.price', '<=', $amountMax)
                             ->where('all_auction_details_views.subcategory_id', $subcategory_id)
                             ->where('all_auction_details_views.district_id', $district_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -328,6 +361,7 @@ class InternalFilterController extends Controller
             $searchResults = DB::table('all_auction_details_views')
                             ->whereDate('all_auction_details_views.created_at', $date)
                             ->where('all_auction_details_views.subcategory_id', $subcategory_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -337,6 +371,7 @@ class InternalFilterController extends Controller
             $searchResults = DB::table('all_auction_details_views')
                             ->whereDate('all_auction_details_views.created_at', $date)
                             ->where('all_auction_details_views.district_id', $district_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -347,6 +382,7 @@ class InternalFilterController extends Controller
                             ->whereDate('all_auction_details_views.created_at', $date)
                             ->where('all_auction_details_views.district_id', $district_id)
                             ->where('all_auction_details_views.upazila_id', $upazila_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
@@ -357,18 +393,22 @@ class InternalFilterController extends Controller
                             ->where('all_auction_details_views.price', '<=', $amountMax)
                             ->whereDate('all_auction_details_views.created_at', $date)
                             ->where('all_auction_details_views.subcategory_id', $subcategory_id)
+                            ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
             return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
         }
         
-        if(empty($amountMax) && empty($amountMin) && empty($date) && $subcategory_id == 0 && $district_id == 0 && $upazila_id == 0) {
+        if(empty($amountMax) && empty($amountMin) && empty($date) && $upazila_id == 0) {
             $searchResults = DB::table('all_auction_details_views')
+                            ->where('all_auction_details_views.subcategory_id', $subcategory_id)
+                            ->where('all_auction_details_views.district_id', $district_id)
                             ->select('all_auction_details_views.*')
                             ->orderBy('all_auction_details_views.created_at', 'DESC')
                             ->paginate(5);
              return view('frontEnd.searchResult.categoryResult', ['searchResults' => $searchResults, 'divisions' => $divisions, 'districts' => $districts, 'upazilas' => $upazilas, 'categories' => $categories, 'subCategories' => $subCategories]);
         }
+        
         
     }
     

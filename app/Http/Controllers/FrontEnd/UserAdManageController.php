@@ -17,6 +17,7 @@ use App\SellerDetail;
 use App\User;
 use App\UserAddress;
 use App\UserInfo;
+use App\Comment;
 use DB;
 use Intervention\Image\Facades\Image;
 
@@ -295,6 +296,12 @@ class UserAdManageController extends Controller {
         $auctionImage = AuctionImage::where('auction_id', $id)->first();
         $sellerDetail = SellerDetail::where('auction_id', $id)->first();
         $user_id = SellerDetail::where('auction_id', $id)->select('user_id')->first();
+        $comments = Comment::where('auction_id', $id)->get();
+        if($comments){
+            foreach ($comments as $comment) {
+                $comment->delete();
+            }
+        }
 
         $adImage1 = $auctionImage->adImage1;
         $adImage2 = $auctionImage->adImage2;

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Comment;
 use App\SellerDetail;
 use App\AuctionDetail;
 use App\AuctionCategory;
@@ -147,66 +148,103 @@ class UserManageController extends Controller
     public function destroy($id)
     {
         $user = User::where('id', $id)->first();
-        $auctionDetail = AuctionDetail::where('user_id', $id)->delete();
-        $auctionCategory = AuctionCategory::where('user_id', $id)->delete();
-        $auctionImages = AuctionImage::where('user_id', $id)->get();
-        $userAddress = UserAddress::where('user_id', $id)->delete();
         $userInfo = UserInfo::where('user_id', $id)->first();
-        
-        foreach ($auctionImages as $auctionImage)
-        {
-            $adImage1 = $auctionImage->adImage1;
-            $adImage2 = $auctionImage->adImage2;
-            $adImage3 = $auctionImage->adImage3;
-            if(file_exists($adImage1) || file_exists($adImage2) || file_exists($adImage3))
+        if($userInfo){
+            $userProfile = $userInfo->userProfile;
+            if(file_exists($userProfile))
             {
-                if($adImage1 == $adImage2 && $adImage2 == $adImage3){
-                     unlink($adImage1);
-                     break;
+                if($userProfile){
+                     unlink($userProfile);
                 }
-                if($adImage1 == $adImage2)
+            }
+            $userInfo->delete();
+        }
+        $userAddress = UserAddress::where('user_id', $id)->first();
+        if($userAddress){
+            $userAddress->delete();
+        }
+        $comments = Comment::where('user_id', $id)->get();
+        if($comments){
+            foreach ($comments as $comment) {
+                $comment->delete();
+            }
+        }
+        
+        
+        $auctionImages = AuctionImage::where('user_id', $id)->get();
+        if($auctionImages){
+            foreach ($auctionImages as $auctionImage)
+            {
+                $adImage1 = $auctionImage->adImage1;
+                $adImage2 = $auctionImage->adImage2;
+                $adImage3 = $auctionImage->adImage3;
+                if(file_exists($adImage1) || file_exists($adImage2) || file_exists($adImage3))
                 {
-                    unlink($adImage1);
-                    unlink($adImage3);
-                     break;
-                }
-                if($adImage1 == $adImage3)
-                {
-                    unlink($adImage1);
-                    unlink($adImage2);
-                     break;
-                }
-                if($adImage2 == $adImage3)
-                {
-                    unlink($adImage1);
-                    unlink($adImage2);
-                     break;
-                }
-                if($adImage1){
-                     unlink($adImage1);
-                }
-                if($adImage2){
-                     unlink($adImage2);
-                }
-                if($adImage3){
-                     unlink($adImage3);
+                    if($adImage1 == $adImage2 && $adImage2 == $adImage3){
+                         unlink($adImage1);
+                         $auctionImage->delete();
+                         break;
+                    }
+                    if($adImage1 == $adImage2)
+                    {
+                        unlink($adImage1);
+                        unlink($adImage3);
+                        $auctionImage->delete();
+                        break;
+                    }
+                    if($adImage1 == $adImage3)
+                    {
+                        unlink($adImage1);
+                        unlink($adImage2);
+                        $auctionImage->delete();
+                        break;
+                    }
+                    if($adImage2 == $adImage3)
+                    {
+                        unlink($adImage1);
+                        unlink($adImage2);
+                        $auctionImage->delete();
+                        break;
+                    }
+                    if($adImage1){
+                         unlink($adImage1);
+                    }
+                    if($adImage2){
+                         unlink($adImage2);
+                    }
+                    if($adImage3){
+                         unlink($adImage3);
+                    }
+                    $auctionImage->delete();
                 }
             }
         }
         
-        $userProfile = $userInfo->userProfile;
-        
-        if(file_exists($userProfile))
-        {
-            if($userProfile){
-                 unlink($userProfile);
+        $auctionDetails = AuctionDetail::where('user_id', $id)->get();
+        if($auctionDetails){
+            foreach ($auctionDetails as $auctionDetail) {
+                $auctionDetail->delete();
+            }
+        }
+        $auctionCategories = AuctionCategory::where('user_id', $id)->get();
+        if($auctionCategories){
+            foreach ($auctionCategories as $auctionCategory) {
+                $auctionCategory->delete();
+            }
+        }
+        $auctionPlaces = AuctionPlace::where('user_id', $id)->get();
+        if($auctionPlaces){
+            foreach ($auctionPlaces as $auctionPlace) {
+                $auctionPlace->delete();
+            }
+        }
+        $sellerDetails = SellerDetail::where('user_id', $id)->get();
+        if($sellerDetails){
+            foreach ($sellerDetails as $sellerDetail) {
+                $sellerDetail->delete();
             }
         }
         
-        $auctionImagesDelete = AuctionImage::where('user_id', $id)->delete();
-        $auctionPlace = AuctionPlace::where('user_id', $id)->delete();
-        $sellerDetail = SellerDetail::where('user_id', $id)->delete();
-        $userInfo->delete();
         $user->delete();
         
         return redirect('/admin/manage-users')->with('message', 'User info deleted successfully!');
@@ -219,6 +257,12 @@ class UserManageController extends Controller
         $auctionImage = AuctionImage::where('auction_id', $id)->first();
         $sellerDetail = SellerDetail::where('auction_id', $id)->first();
         $user_id = SellerDetail::where('auction_id', $id)->select('user_id')->first();
+        $comments = Comment::where('auction_id', $id)->get();
+        if($comments){
+            foreach ($comments as $comment) {
+                $comment->delete();
+            }
+        }
 
         $adImage1 = $auctionImage->adImage1;
         $adImage2 = $auctionImage->adImage2;
@@ -251,7 +295,8 @@ class UserManageController extends Controller
             }
         }
         
-
+        
+        
         $auction_detail->delete();
         $auction_category->delete();
         $auction_places->delete();
