@@ -20,7 +20,11 @@ class LiveSearchController extends Controller
     public function action(Request $request) {
         
          $term = $request->term;
-         $data = AuctionDetail::where('auctionTitle','LIKE','%'.$term.'%')->get();
+         $data = DB::table('auction_details')
+					->where('auctionTitle','LIKE','%'.$term.'%')
+					->orderBy('created_at', 'desc')
+					->limit(10)
+					->get();
          if(count($data) == 0)
          {
              $searchResult[] = 'No item Found'; 

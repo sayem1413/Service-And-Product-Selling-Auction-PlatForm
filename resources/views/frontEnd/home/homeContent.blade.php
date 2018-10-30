@@ -32,7 +32,7 @@ Home
                         <div class="col-md-3 biseller-column">
                             <a href="{{url('/auction/details/'.$sliderMobile->id)}}">
                                 <img src="{{asset($sliderMobile->adImage1)}}"/>
-                                <span class="price">{{$sliderMobile->price}}/-</span>
+                                <span class="price">&#x9f3 {{$sliderMobile->price}}/-</span>
                             </a> 
                             <div class="ad-info">
                                 <h5>{{$sliderMobile->auctionTitle}}</h5>
@@ -89,7 +89,7 @@ Home
                         <div class="col-md-3 biseller-column">
                             <a href="{{url('/auction/details/'.$sliderLaptop->id)}}">
                                 <img src="{{asset($sliderLaptop->adImage1)}}"/>
-                                <span class="price">{{$sliderLaptop->price}}/-</span>
+                                <span class="price">&#x9f3 {{$sliderLaptop->price}}/-</span>
                             </a> 
                             <div class="ad-info">
                                 <h5>{{$sliderLaptop->auctionTitle}}</h5>
@@ -146,7 +146,7 @@ Home
                         <div class="col-md-3 biseller-column">
                             <a href="{{url('/auction/details/'.$sliderBike->id)}}">
                                 <img src="{{asset($sliderBike->adImage1)}}"/>
-                                <span class="price"> {{$sliderBike->price}}/-</span>
+                                <span class="price">&#x9f3 {{$sliderBike->price}}/-</span>
                             </a> 
                             <div class="ad-info">
                                 <h5>{{$sliderBike->auctionTitle}}</h5>
@@ -159,7 +159,7 @@ Home
                         <div class="col-md-3 biseller-column">
                             <a href="{{url('/auction/details/'.$sliderCar->id)}}">
                                 <img src="{{asset($sliderCar->adImage1)}}"/>
-                                <span class="price"> {{$sliderCar->price}}/-</span>
+                                <span class="price">&#x9f3 {{$sliderCar->price}}/-</span>
                             </a> 
                             <div class="ad-info">
                                 <h5>{{$sliderCar->auctionTitle}}</h5>

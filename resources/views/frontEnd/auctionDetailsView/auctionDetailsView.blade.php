@@ -51,7 +51,7 @@
                 <div class="item-price">
                     <div class="product-price">
                         <p class="p-price">Price : </p>
-                        <h3 class="rate">{{$auctionDetails->price}}tk</h3>
+                        <h3 class="rate">&#x9f3 {{$auctionDetails->price}}tk ({{$auctionDetails->negotiable == 1 ? 'Negotiable':'Fixed'}})</h3>
                         <div class="clearfix"></div>
                     </div>
                     <div class="condition">
@@ -69,11 +69,15 @@
                     <h4>Interested in this Ad?<small> Contact the Seller!</small></h4>
                     <p><i class="glyphicon glyphicon-earphone"></i>{{$auctionDetails->phoneNumber}}</p>
                 </div>
+				<div class="interested text-center">
+                    <h4>Interested in this Ad?<small> View seller profile!</small></h4>
+                    <p><i class="glyphicon glyphicon-user"></i><a href="{{url('/user/profile-view/'.$auctionDetails->user_id)}}"><b>{{$auctionDetails->name}}</b></a> </p>
+                </div>
                 <div class="tips">
                     <h4>Safety Tips for Buyers</h4>
                     <ol>
-                        <li><a href="#">Contrary to popular belief.</a></li>
-                        <li><a href="#">Contrary to popular belief.</a></li>
+                        <li><a href="#">please, Stay safe from fake seller.</a></li>
+                        <li><a href="#">Justify product first.</a></li>
                     </ol>
                 </div>
             </div>

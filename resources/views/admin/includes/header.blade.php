@@ -11,7 +11,7 @@
 <!-- /.navbar-header -->
 
 <ul class="nav navbar-top-links navbar-right">
-    <li class="dropdown">
+    <!-- <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
         </a>
@@ -36,9 +36,9 @@
             </li>
         </ul>
         <!-- /.dropdown-messages -->
-    </li>
+    <!-- </li> -->
     <!-- /.dropdown -->
-    <li class="dropdown">
+    <!-- <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
         </a>
@@ -67,9 +67,9 @@
             </li>
         </ul>
         <!-- /.dropdown-tasks -->
-    </li>
+   <!-- </li> -->
     <!-- /.dropdown -->
-    <li class="dropdown">
+    <!-- <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
         </a>
@@ -91,7 +91,7 @@
             </li>
         </ul>
         <!-- /.dropdown-alerts -->
-    </li>
+    <!-- </li> -->
     <!-- /.dropdown -->
     <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">

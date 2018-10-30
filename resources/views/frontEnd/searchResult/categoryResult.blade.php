@@ -228,7 +228,7 @@ search results
                                                     <img src="{{asset($searchResult->adImage1)}}" title="" alt="" height="135px" width="145px" />
                                                     <section class="list-left">
                                                         <h5 class="title">{{$searchResult->auctionTitle}}</h5>
-                                                        <span class="adprice">{{$searchResult->price}}/-</span>
+                                                        <span class="adprice">&#x9f3 {{$searchResult->price}}/-</span>
                                                         <p class="catpath">{{$searchResult->categoryName}}>{{$searchResult->subCategoryName}}</p>
                                                     </section>
                                                     <section class="list-right">
