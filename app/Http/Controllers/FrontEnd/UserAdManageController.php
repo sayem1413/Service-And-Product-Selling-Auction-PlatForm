@@ -18,12 +18,15 @@ use App\User;
 use App\UserAddress;
 use App\UserInfo;
 use App\Comment;
+use App\CardInfo;
 use DB;
 use Intervention\Image\Facades\Image;
 
 class UserAdManageController extends Controller {
 
     public function manageUserAuction($id) {
+        
+        $cardInfo = CardInfo::where('user_id',$id)->first();
         $userAuctions = DB::table('all_auction_details_views')
                 ->select('all_auction_details_views.*')
                 ->where('all_auction_details_views.user_id', $id)
@@ -32,14 +35,16 @@ class UserAdManageController extends Controller {
         $userAddress = UserAddress::where('user_id',$id)->first();
         $userInfo = UserInfo::where('user_id',$id)->first();
 
-        return view('frontEnd.userAuctions.userAuctionsManage', ['userAuctions' => $userAuctions, 'userAddress' => $userAddress, 'userInfo' => $userInfo]);
+        return view('frontEnd.userAuctions.userAuctionsManage', ['cardInfo' => $cardInfo, 'userAuctions' => $userAuctions, 'userAddress' => $userAddress, 'userInfo' => $userInfo]);
     }
 
     public function editUserAuction($id) {
 
         $categories = Category::all();
         $divisions = Division::all();
-
+        
+        $cardInfo = CardInfo::where('user_id',$id)->first();
+        
         $userAuctionById = DB::table('all_auction_details_views')
                 ->select('all_auction_details_views.*')
                 ->where('all_auction_details_views.id', $id)
@@ -58,7 +63,7 @@ class UserAdManageController extends Controller {
 //                            ->where('auction_details.id', $id)
 //                            ->first();
 
-        return view('frontEnd.userAuctions.userAuctionsEdit', ['userAuctionById' => $userAuctionById, 'categories' => $categories, 'divisions' => $divisions, 'userAddress' => $userAddress, 'userInfo' => $userInfo]);
+        return view('frontEnd.userAuctions.userAuctionsEdit', ['cardInfo' => $cardInfo, 'userAuctionById' => $userAuctionById, 'categories' => $categories, 'divisions' => $divisions, 'userAddress' => $userAddress, 'userInfo' => $userInfo]);
     }
 
     public function updateUserAuction(Request $request) {

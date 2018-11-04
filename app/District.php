@@ -23,4 +23,8 @@ class District extends Model
     public function upazilas() {
         return $this->hasMany(Upazila::class);
     }
+    
+    public function auctionPlaces() {
+        return $this->hasMany(AuctionPlace::class);
+    }
 }

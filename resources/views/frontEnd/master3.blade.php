@@ -59,6 +59,9 @@ $(document).ready(function () {
         <link href="{{asset('public/frontEnd/css/jquery.uls.grid.css')}}" rel="stylesheet"/>
         <link href="{{asset('public/frontEnd/css/jquery.uls.lcd.css')}}" rel="stylesheet"/>
         
+        <link rel="stylesheet" type="text/css" href="{{asset('public/frontEnd/card-assets/css/styles.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('public/frontEnd/card-assets/css/demo.css')}}">
+        
         <!-- Source -->
         <script src="{{asset('public/frontEnd/js/jquery.uls.data.js')}}"></script>
         <script src="{{asset('public/frontEnd/js/jquery.uls.data.utils.js')}}"></script>

@@ -35,14 +35,20 @@
                                             <li>
                                                 <a href="{{url('/user/activity/'.Auth::user()->id)}}"><span class="fa fa-arrow-right"></span>Comment</a>
                                             </li>
-                                            <li>
-                                                <a href="#"><span class="fa fa-arrow-right"></span>Faviourites</a>
-                                            </li>
                                         </ul>
                                     </li>
                                     <li>
                                         <a href="{{url('/auctions-manage/user/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Manage Advertisements</a>
                                     </li>
+                                    @if(count($cardInfo) === 1)
+                                    <li>
+                                        <a href="{{url('/user/payment-form/edit/')}}"><i class="fa fa-credit-card"></i> Edit Card Info</a>
+                                    </li>
+                                    @else
+                                    <li>
+                                        <a href="{{url('/user/payment-form/')}}"><i class="fa fa-credit-card"></i> Auction Payment</a>
+                                    </li>
+                                    @endif
                                 @else
                                     <li>
                                         <a href="{{url('/user-profile/create/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Create Profile Info</a>
@@ -53,14 +59,20 @@
                                             <li>
                                                 <a href="{{url('/user/activity/'.Auth::user()->id)}}"><span class="fa fa-arrow-right"></span>Comment</a>
                                             </li>
-                                            <li>
-                                                <a href="#"><span class="fa fa-arrow-right"></span>Faviourites</a>
-                                            </li>
                                         </ul>
                                     </li>
                                     <li>
                                         <a href="{{url('/auctions-manage/user/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Manage Advertisements</a>
                                     </li>
+                                    @if(count($cardInfo) === 1)
+                                    <li>
+                                        <a href="{{url('/user/payment-form/edit/')}}"><i class="fa fa-credit-card"></i> Edit Card Info</a>
+                                    </li>
+                                    @else
+                                    <li>
+                                        <a href="{{url('/user/payment-form/')}}"><i class="fa fa-credit-card"></i> Auction Payment</a>
+                                    </li>
+                                    @endif
                                 @endif
                             </ul>
                             <!-- /.nav-second-level -->

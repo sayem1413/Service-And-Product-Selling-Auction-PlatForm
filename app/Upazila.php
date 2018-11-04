@@ -16,4 +16,8 @@ class Upazila extends Model
         return $this->belongsTo(District::class);
     }
     
+    public function auctionPlaces() {
+        return $this->belongsTo(AuctionPlace::class);
+    }
+    
 }

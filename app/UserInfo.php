@@ -8,6 +8,10 @@ class UserInfo extends Model
 {
     //
     
+    protected $fillable = [
+        'profileImage', 'phoneNumber', 'facebookLink', 'dateOfBirth', 'userCategory', 'gender', 'user_id',
+    ];
+    
     public function user()
     {
         return $this->belongsTo(User::class);

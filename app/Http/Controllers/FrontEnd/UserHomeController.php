@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\UserAddress;
 use App\UserInfo;
+use App\CardInfo;
 use DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,6 +32,7 @@ class UserHomeController extends Controller
     public function index()
     {
         $id = Auth::user()->id;
+        $cardInfo = CardInfo::where('user_id',$id)->first();
         $userAddress = UserAddress::where('user_id',$id)->first();
         $userInfo = UserInfo::where('user_id',$id)->first();
         $userDivision = DB::table('user_addresses')
@@ -51,6 +53,6 @@ class UserHomeController extends Controller
                             ->where('user_addresses.user_id', $id)
                             ->first();
         
-        return view('frontEnd.profile.profile', ['userAddress' => $userAddress, 'userInfo' => $userInfo, 'userDivision' => $userDivision, 'userDistrict' => $userDistrict, 'userUpazila' => $userUpazila]);
+        return view('frontEnd.profile.profile', ['cardInfo' => $cardInfo,'userAddress' => $userAddress, 'userInfo' => $userInfo, 'userDivision' => $userDivision, 'userDistrict' => $userDistrict, 'userUpazila' => $userUpazila]);
     }
 }

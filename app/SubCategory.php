@@ -19,4 +19,8 @@ class SubCategory extends Model
     public function manufacturers() {
         return $this->belongsToMany(Manufacturer::class)->using(SubcategoryManufacturer::class);
     }
+    
+    public function auctionCategories() {
+        return $this->hasMany(AuctionCategory::class);
+    }
 }

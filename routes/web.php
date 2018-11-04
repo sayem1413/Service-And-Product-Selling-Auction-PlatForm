@@ -82,7 +82,7 @@ Route::group(['middleware' => 'AuthenticateUser'], function() {
     
     // Manage-Auction //
     
-     // Manage-User Profile //
+    // Manage-User Profile //
     
     Route::get('/user-profile/create/{id}', 'FrontEnd\UserProfileManageController@createUserProfile');
     Route::post('/user-profile/save/', 'FrontEnd\UserProfileManageController@saveUserProfile');
@@ -101,6 +101,16 @@ Route::group(['middleware' => 'AuthenticateUser'], function() {
     Route::post('/user-comment/update/', 'FrontEnd\CommentsController@updateComment');
     Route::get('/user/comment-delete/{id}', 'FrontEnd\CommentsController@distroyComment');
     // Activity Section //
+    
+    //Credit Card Section//
+     
+    Route::get('/user/payment-form/', 'FrontEnd\CardPaymentController@addPaymentCardForm');
+    Route::post('/user/payment-form-save/', 'FrontEnd\CardPaymentController@savePaymentCardInfo');
+    
+    Route::get('/user/payment-form/edit/', 'FrontEnd\CardPaymentController@editPaymentCardInfo');
+    Route::post('/user/payment-info/update/', 'FrontEnd\CardPaymentController@updatePaymentCardInfo');
+    
+    //Credit Card Section//
     
 });
 

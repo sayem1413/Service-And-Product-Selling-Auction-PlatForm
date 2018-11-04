@@ -66,11 +66,10 @@
                     </div>
                 </div>
                 <div class="interested text-center">
-                    <h4>Interested in this Ad?<small> Contact the Seller!</small></h4>
+                    <h4>Interested in this Ad?<br/><small> Contact the Seller!</small></h4>
                     <p><i class="glyphicon glyphicon-earphone"></i>{{$auctionDetails->phoneNumber}}</p>
-                </div>
-				<div class="interested text-center">
-                    <h4>Interested in this Ad?<small> View seller profile!</small></h4>
+                    <br/>
+                    <h4><small> View seller profile!</small></h4>
                     <p><i class="glyphicon glyphicon-user"></i><a href="{{url('/user/profile-view/'.$auctionDetails->user_id)}}"><b>{{$auctionDetails->name}}</b></a> </p>
                 </div>
                 <div class="tips">

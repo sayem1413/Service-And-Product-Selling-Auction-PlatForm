@@ -35,14 +35,20 @@ Edit Profile page
                                             <li>
                                                 <a href="{{url('/user/activity/'.Auth::user()->id)}}"><span class="fa fa-arrow-right"></span>Comment</a>
                                             </li>
-                                            <li>
-                                                <a href="#"><span class="fa fa-arrow-right"></span>Faviourites</a>
-                                            </li>
                                         </ul>
                                     </li>
                                     <li>
                                         <a href="{{url('/auctions-manage/user/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Manage Advertisements</a>
                                     </li>
+                                    @if(count($cardInfo) === 1)
+                                    <li>
+                                        <a href="{{url('/user/payment-form/edit/')}}"><i class="fa fa-credit-card"></i> Edit Card Info</a>
+                                    </li>
+                                    @else
+                                    <li>
+                                        <a href="{{url('/user/payment-form/')}}"><i class="fa fa-credit-card"></i> Auction Payment</a>
+                                    </li>
+                                    @endif
                                 @else
                                     <li>
                                         <a href="{{url('/user-profile/create/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Create Profile Info</a>
@@ -53,14 +59,20 @@ Edit Profile page
                                             <li>
                                                 <a href="{{url('/user/activity/'.Auth::user()->id)}}"><span class="fa fa-arrow-right"></span>Comment</a>
                                             </li>
-                                            <li>
-                                                <a href="#"><span class="fa fa-arrow-right"></span>Faviourites</a>
-                                            </li>
                                         </ul>
                                     </li>
                                     <li>
                                         <a href="{{url('/auctions-manage/user/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Manage Advertisements</a>
                                     </li>
+                                    @if(count($cardInfo) === 1)
+                                    <li>
+                                        <a href="{{url('/user/payment-form/edit/')}}"><i class="fa fa-credit-card"></i> Edit Card Info</a>
+                                    </li>
+                                    @else
+                                    <li>
+                                        <a href="{{url('/user/payment-form/')}}"><i class="fa fa-credit-card"></i> Auction Payment</a>
+                                    </li>
+                                    @endif
                                 @endif
                             </ul>
                             <!-- /.nav-second-level -->
@@ -240,10 +252,10 @@ Edit Profile page
                                         <label for="title">Personal/Business account</label>
                                     </div>
                                     <div class="col-sm-2">
-                                        <label><input type="radio" id="userCategory" name="userCategory" value="0{{$userInfo->userCategory == 0 ? 'checked' : ''}}">  Personal</label>
+                                        <label><input type="radio" id="userCategory" name="userCategory" value="0" {{$userInfo->userCategory == 0 ? 'checked' : ''}}>  Personal</label>
                                     </div>
                                     <div class="col-sm-2">
-                                        <label><input type="radio" id="userCategory" name="userCategory" value="1{{$userInfo->userCategory == 1 ? 'checked' : ''}}">  Business</label>
+                                        <label><input type="radio" id="userCategory" name="userCategory" value="1" {{$userInfo->userCategory == 1 ? 'checked' : ''}}>  Business</label>
                                     </div>
                                     <div class="col-sm-4">
                                         <span class="text-danger">{{$errors->has('userCategory')?$errors->first('userCategory'):''}}</span>
@@ -254,13 +266,13 @@ Edit Profile page
                                         <label for="title">Gender</label>
                                     </div>
                                     <div class="col-sm-2">
-                                        <label><input type="radio" id="gender" name="gender" value="1{{$userInfo->gender == 1 ? 'checked' : ''}}">  Male</label>
+                                        <label><input type="radio" id="gender" name="gender" value="1" {{$userInfo->gender == 1 ? 'checked' : ''}}>  Male</label>
                                     </div>
                                     <div class="col-sm-2">
-                                        <label><input type="radio" id="gender" name="gender" value="0{{$userInfo->gender == 0 ? 'checked' : ''}}">  Female</label>
+                                        <label><input type="radio" id="gender" name="gender" value="0" {{$userInfo->gender == 0 ? 'checked' : ''}}>  Female</label>
                                     </div>
                                     <div class="col-sm-2">
-                                        <label><input type="radio" id="gender" name="gender" value="2{{$userInfo->gender == 2 ? 'checked' : ''}}">  Others</label>
+                                        <label><input type="radio" id="gender" name="gender" value="2" {{$userInfo->gender == 2 ? 'checked' : ''}}>  Others</label>
                                     </div>
                                     <div class="col-sm-2">
                                         <span class="text-danger">{{$errors->has('gender')?$errors->first('gender'):''}}</span>

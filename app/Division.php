@@ -15,4 +15,9 @@ class Division extends Model
     public function districts() {
         return $this->hasMany(District::class);
     }
+    
+    public function auctionPlaces() {
+        return $this->hasMany(AuctionPlace::class);
+    }
+    
 }

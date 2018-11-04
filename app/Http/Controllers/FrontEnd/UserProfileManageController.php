@@ -9,6 +9,7 @@ use App\Division;
 use App\User;
 use App\UserAddress;
 use App\UserInfo;
+use App\CardInfo;
 use DB;
 use Intervention\Image\Facades\Image;
 
@@ -16,10 +17,11 @@ class UserProfileManageController extends Controller
 {
     public function createUserProfile($id) {
         
+        $cardInfo = CardInfo::where('user_id',$id)->first();
         $divisions = Division::all();
         $userAddress = UserAddress::where('user_id',$id)->first();
         $userInfo = UserInfo::where('user_id',$id)->first();
-        return view('frontEnd.profile.createProfile', ['divisions' => $divisions, 'userAddress' => $userAddress, 'userInfo' => $userInfo]);
+        return view('frontEnd.profile.createProfile', ['cardInfo' => $cardInfo, 'divisions' => $divisions, 'userAddress' => $userAddress, 'userInfo' => $userInfo]);
     }
     
     public function saveUserProfile(Request $request) {
@@ -81,6 +83,7 @@ class UserProfileManageController extends Controller
     
     public function editUserProfile($id) {
         
+        $cardInfo = CardInfo::where('user_id',$id)->first();
         $divisions = Division::all();
         $userAddress = UserAddress::where('user_id',$id)->first();
         $userInfo = UserInfo::where('user_id', $id)->first();
@@ -91,7 +94,7 @@ class UserProfileManageController extends Controller
                             ->where('user_addresses.user_id', $id)
                             ->first();
         
-        return view('frontEnd.profile.editProfile', ['divisions' => $divisions, 'userAddress' => $userAddress, 'userInfo' => $userInfo, 'userAddresses' => $userAddresses]);
+        return view('frontEnd.profile.editProfile', ['cardInfo' => $cardInfo, 'divisions' => $divisions, 'userAddress' => $userAddress, 'userInfo' => $userInfo, 'userAddresses' => $userAddresses]);
     }
     
     public function updateUserProfile(Request $request) {

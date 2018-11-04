@@ -37,6 +37,11 @@ class User extends Authenticatable
         return $this->hasOne(UserInfo::class);
     }
     
+    public function cardInfo()
+    {
+        return $this->hasOne(CardInfo::class);
+    }
+    
     public function comments()
     {
         return $this->hasMany(Comment::class);
