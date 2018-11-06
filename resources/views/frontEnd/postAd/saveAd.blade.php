@@ -84,17 +84,17 @@ Ad-Post
                 <div class="col-sm-3">
                     <input type="file" id="adImageInput1" class="form-control" name="adImage1" >
                     <br/>
-                    <span><img src="#" id="adImage1"  height="170px" width="150px" ></span>
+                    <span><img src="{{asset('public/frontEnd/postAd/upload-icon-30.png')}}" id="adImage1"  height="170px" width="150px" ></span>
                 </div>
                 <div class="col-sm-3">
                     <input type="file" id="adImageInput2" class="form-control" name="adImage2" >
                     <br/>
-                    <span><img src="#" id="adImage2"  height="170px" width="150px" ></span>
+                    <span><img src="{{asset('public/frontEnd/postAd/upload-icon-30.png')}}" id="adImage2"  height="170px" width="150px" ></span>
                 </div>
                 <div class="col-sm-3">
                     <input type="file" id="adImageInput3" class="form-control" name="adImage3" >
                     <br/>
-                    <span><img src="#" id="adImage3"  height="170px" width="150px" ></span>
+                    <span><img src="{{asset('public/frontEnd/postAd/upload-icon-30.png')}}" id="adImage3"  height="170px" width="150px" ></span>
                 </div>
             </div>
 
@@ -133,6 +133,31 @@ Ad-Post
                 </div>
                 <div class="col-sm-4">
                     <label><input type="checkbox" id="negotiable" name="negotiable" value="1">  Negotiable</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-md-4">
+                    
+                </div>
+                <div class="col-sm-4">
+                    <label><input type="checkbox" id="forAuction" name="forAuction" value="1"> Do you want to take the auction?</label>
+                </div>
+                <div class="col-md-4">
+                    
+                </div>
+            </div>
+            
+            <div class="form-group" id="auctionExpiryDateDiv">
+                <div class="col-sm-4">
+                    <label for="title">Auction Expiry Date </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="date" value="" id="auctionExpiryDate" class="form-control" name="auctionExpiryDate">
+                    <span class="text-danger">{{$errors->has('auctionExpiryDate')?$errors->first('auctionExpiryDate'):''}}</span>
+                </div>
+                <div class="col-sm-4">
+                    <label style="color: red;">Please! Select Auction Expiry Date!</label>
                 </div>
             </div>
 
@@ -242,6 +267,21 @@ Ad-Post
     });
 
 </script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#auctionExpiryDateDiv').hide();
+    var auctionExpiry = $('#auctionExpiryDate');
+    $('#forAuction').change(function(){
+        if(this.checked)
+            $('#auctionExpiryDateDiv').fadeIn();
+        else
+            $('#auctionExpiryDateDiv').fadeOut();
+    });
+});
+
+</script>
+
 <script>
     function readURL1(input) {
 

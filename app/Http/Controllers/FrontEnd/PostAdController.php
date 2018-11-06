@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Session;
+use Carbon\Carbon;
+
 use App\Category;
 use App\SubCategory;
 use App\Manufacturer;
@@ -19,6 +21,7 @@ use App\AuctionDetail;
 use App\AuctionCategory;
 use App\AuctionPlace;
 use App\AuctionImage;
+use App\AuctionTime;
 use App\SellerDetail;
 use DB;
 use Intervention\Image\Facades\Image;
@@ -102,6 +105,16 @@ class PostAdController extends Controller {
         $auctionDetail->save();
         $auction_id = $auctionDetail->id;
         Session::put('auction_id', $auction_id);
+        
+        $auctionTime = new AuctionTime();
+        if($request->forAuction == 1 && !empty($request->auctionExpiryDate)){
+            $auctionTime->auctionExpiryDate = $request->auctionExpiryDate;
+            $auctionTime->auction_id =  Session::get('auction_id');
+            $auctionTime->save();
+        }else{
+            $auctionTime->auction_id =  Session::get('auction_id');
+            $auctionTime->save();
+        }
         
         $auctionCategory = new AuctionCategory();
         $auctionCategory->category_id = $request->category_id;
