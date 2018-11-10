@@ -226,7 +226,20 @@ Auction Edit
                         <label><input type="checkbox" id="negotiable" name="negotiable" value="1"{{$userAuctionById->negotiable == 1 ? 'checked' : ''}}>  Negotiable</label>
                     </div>
                 </div>
-
+                
+                <div class="form-group" id="auctionExpiryDateDiv">
+                    <div class="col-sm-4">
+                        <label for="title">Auction Expiry Date </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="date" value="{{$userAuctionById->auctionExpiryDate}}" id="auctionExpiryDate" class="form-control" name="auctionExpiryDate">
+                        <span class="text-danger">{{$errors->has('auctionExpiryDate')?$errors->first('auctionExpiryDate'):''}}</span>
+                    </div>
+                    <div class="col-sm-4">
+                        <label style="color: red;"></label>
+                    </div>
+                </div>
+                
                 <div class="form-group">
                     <div class="col-sm-4">
                         <label for="title">Your Advertisement Description</label>

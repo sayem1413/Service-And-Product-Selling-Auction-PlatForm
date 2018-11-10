@@ -4,6 +4,9 @@ namespace App\Http\Controllers\FrontEnd;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
+use Carbon\Carbon;
+
 use App\Category;
 use App\SubCategory;
 use App\Division;
@@ -14,6 +17,7 @@ use App\AuctionCategory;
 use App\AuctionPlace;
 use App\AuctionImage;
 use App\SellerDetail;
+use App\AuctionTime;
 use App\User;
 use App\UserAddress;
 use App\UserInfo;
@@ -74,6 +78,7 @@ class UserAdManageController extends Controller {
             'districts' => 'required|not_in:0',
             'upazilas' => 'required|not_in:0',
             'auctionTitle' => 'required',
+            'auctionExpiryDate' => 'required',
             'auctionDescription' => 'required',
             'condition' => 'required|in:0,1',
             'price' => 'required',
@@ -89,7 +94,14 @@ class UserAdManageController extends Controller {
             $auctionDetail->negotiable = $request->negotiable;
         }
         $auctionDetail->save();
-
+        
+        $currentTime = Carbon::now()->format('Y-m-d');
+        
+        $auctionTime = AuctionTime::where('auction_id', $request->auction_id)->first();
+        $auctionTime->auctionExpiryDate = $request->auctionExpiryDate;
+        $auctionTime->auction_id = $request->auction_id;
+        $auctionTime->save();
+        
         $auctionCategory = AuctionCategory::where('auction_id', $request->auction_id)->first();
         $auctionCategory->category_id = $request->categories;
         $auctionCategory->subcategory_id = $request->subcategories;

@@ -64,7 +64,27 @@
                         <p><strong>{{$auctionDetails->subCategoryName}}</strong></p>
                         <div class="clearfix"></div>
                     </div>
+                    <div class="itemtype">
+                        <p class="p-price"><strong>Time Remaining: </strong></p>
+                        <table style="border:0px;">
+                            <tr>
+                               <td colspan="8"><span id="future_date"></span></td>
+                            </tr>
+                        </table>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
+                <script type="text/javascript" src="{{asset('public/frontEnd/timer/js/jQuery.countdownTimer.js')}}"></script>
+                <script type="text/javascript">
+                    $(function(){
+                        
+                        $('#future_date').countdowntimer({
+                            dateAndTime : "{{$auctionDetails->auctionExpiryDate}}",
+                            labelsFormat : true,
+                            displayFormat : "YODHMS"
+                        });
+                    });
+                </script>
                 <div class="interested text-center">
                     <h4>Interested in this Ad?<br/><small> Contact the Seller!</small></h4>
                     <p><i class="glyphicon glyphicon-earphone"></i>{{$auctionDetails->phoneNumber}}</p>

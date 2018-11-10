@@ -59,6 +59,7 @@ $(document).ready(function () {
         <link href="{{asset('public/frontEnd/css/jquery.uls.css')}}" rel="stylesheet"/>
         <link href="{{asset('public/frontEnd/css/jquery.uls.grid.css')}}" rel="stylesheet"/>
         <link href="{{asset('public/frontEnd/css/jquery.uls.lcd.css')}}" rel="stylesheet"/>
+        <link href="{{asset('public/frontEnd/timer/css/jQuery.countdownTimer.css')}}" rel="stylesheet"/>
         <!-- Source -->
         <script src="{{asset('public/frontEnd/js/jquery.uls.data.js')}}"></script>
         <script src="{{asset('public/frontEnd/js/jquery.uls.data.utils.js')}}"></script>
