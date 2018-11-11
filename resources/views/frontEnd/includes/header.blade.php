@@ -57,9 +57,9 @@
 <!-- <span class="active uls-trigger">Select language</span> -->
                     <!-- Large modal -->
                     <div class="selectregion">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        <button class="btn btn-primary">
                             Select Your Region</button>
-                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
                              aria-hidden="true">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
@@ -90,7 +90,6 @@
                             </div>
                         </div>
                         <script>
-                            $('#myModal').modal('');
                         </script>
                     </div>
                 </div>

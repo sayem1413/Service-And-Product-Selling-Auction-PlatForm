@@ -30,19 +30,19 @@
                 <link rel="stylesheet" href="{{asset('public/frontEnd/css/flexslider.css')}}" type="text/css" media="screen" />
 
                 <script>
-                    // Can also be used with $(document).ready()
-                    $(window).load(function () {
-                        $('.flexslider').flexslider({
-                            animation: "slide",
-                            controlNav: "thumbnails"
-                        });
-                    });
+// Can also be used with $(document).ready()
+$(window).load(function () {
+    $('.flexslider').flexslider({
+        animation: "slide",
+        controlNav: "thumbnails"
+    });
+});
                 </script>
                 <!-- //FlexSlider -->
                 <div class="product-details">
-<!--                    <h4>Brand : <a href="#">Company name</a></h4>
-                    <h4>Views : <strong>150</strong></h4>
-                    <p><strong>Display </strong>: 1.5 inch HD LCD Touch Screen</p>-->
+                    <!--                    <h4>Brand : <a href="#">Company name</a></h4>
+                                        <h4>Views : <strong>150</strong></h4>
+                                        <p><strong>Display </strong>: 1.5 inch HD LCD Touch Screen</p>-->
                     <p><strong>Description</strong> : {{$auctionDetails->auctionDescription}}</p>
 
                 </div>
@@ -68,7 +68,7 @@
                         <p class="p-price"><strong>Time Remaining: </strong></p>
                         <table style="border:0px;">
                             <tr>
-                               <td colspan="8"><span id="future_date"></span></td>
+                                <td colspan="8"><span id="future_date"></span></td>
                             </tr>
                         </table>
                         <div class="clearfix"></div>
@@ -76,14 +76,14 @@
                 </div>
                 <script type="text/javascript" src="{{asset('public/frontEnd/timer/js/jQuery.countdownTimer.js')}}"></script>
                 <script type="text/javascript">
-                    $(function(){
-                        
-                        $('#future_date').countdowntimer({
-                            dateAndTime : "{{$auctionDetails->auctionExpiryDate}}",
-                            labelsFormat : true,
-                            displayFormat : "YODHMS"
-                        });
-                    });
+$(function () {
+
+    $('#future_date').countdowntimer({
+        dateAndTime: "{{$auctionDetails->auctionExpiryDate}}",
+        labelsFormat: true,
+        displayFormat: "YODHMS"
+    });
+});
                 </script>
                 <div class="interested text-center">
                     <h4>Interested in this Ad?<br/><small> Contact the Seller!</small></h4>
@@ -91,6 +91,10 @@
                     <br/>
                     <h4><small> View seller profile!</small></h4>
                     <p><i class="glyphicon glyphicon-user"></i><a href="{{url('/user/profile-view/'.$auctionDetails->user_id)}}"><b>{{$auctionDetails->name}}</b></a> </p>
+                </div>
+                <div class="interested text-center">
+                    <h4>Interested for bid?<br/><small> Click the bid button!</small></h4>
+                    <button class="btn btn-success btn-block"  data-toggle="modal" data-target="#myModal">Place Bid</button>
                 </div>
                 <div class="tips">
                     <h4>Safety Tips for Buyers</h4>
@@ -109,9 +113,9 @@
                 <h4>Comments</h4>
                 <hr/>
                 <div id="comments">
-                @foreach($comments as $comment)
-                <p><a href="{{url('/user/profile-view/'.$comment->user_id)}}"><b>{{$comment->userName}}</b></a> {{$comment->commentBody}}</p><br/>
-                @endforeach
+                    @foreach($comments as $comment)
+                    <p><a href="{{url('/user/profile-view/'.$comment->user_id)}}"><b>{{$comment->userName}}</b></a> {{$comment->commentBody}}</p><br/>
+                    @endforeach
                 </div>
                 <br/>
                 @guest
@@ -134,7 +138,7 @@
                 </form>
                 <div class="form-group row">
                     <div class="col-sm-4">
-                        
+
                     </div>
                     <div class="col-sm-8">
                         <button type="submit" class="btn btn-circle" id="add">post Comment</button>
@@ -146,26 +150,52 @@
     </div>
 </div>
 <!--<script type="text/javascript" src="{{asset('public/js/jquery-3.3.1.js')}}"></script>-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <form method="post" action="{{ url('/user-bid/auction/'.$auctionDetails->id) }}">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Place Bid</h4>
+                </div>
+                <div class="modal-body">
+                    <p>{{ $auctionDetails->auctionTitle }}</p>
+                    <p>
+                        Min Bid: {{ $auctionDetails->price }}
+                    </p>
 
+                    <input name="price" type="number" min="{{ $auctionDetails->price }}" class="form-control" value="{{ $auctionDetails->price }}" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Place Bid</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 <script type="text/javascript">
-{{-- ajax Form Add Comment--}}
-  $("#add").click(function() {
-    $.ajax({
-      type: 'POST',
-      url: "{{url('addComment')}}",
-      data: {
-        '_token': $('input[name=_token]').val(),
-        'commentBody': $('textarea[name=commentBody]').val(),
-        'user_id': $('input[name=user_id]').val(),
-        'userName': $('input[name=userName]').val(),
-        'auction_id': $('input[name=auction_id]').val()
-      },
-      success: function(data){
-        $('#comments').append("<p><a href='#'><b>"+ data.userName +" </b></a> "+ data.commentBody +"</p>");
-      },
+    {
+        {
+            -- ajax Form Add Comment--}
+    }
+    $("#add").click(function () {
+        $.ajax({
+            type: 'POST',
+            url: "{{url('addComment')}}",
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'commentBody': $('textarea[name=commentBody]').val(),
+                'user_id': $('input[name=user_id]').val(),
+                'userName': $('input[name=userName]').val(),
+                'auction_id': $('input[name=auction_id]').val()
+            },
+            success: function (data) {
+                $('#comments').append("<p><a href='#'><b>" + data.userName + " </b></a> " + data.commentBody + "</p>");
+            },
+        });
+        $('#commentBody').val('');
     });
-    $('#commentBody').val('');
-  });
 
 // function Edit POST
 //$(document).on('click', '.edit-modal', function() {

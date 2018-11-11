@@ -112,6 +112,13 @@ Route::group(['middleware' => 'AuthenticateUser'], function() {
     
     //Credit Card Section//
     
+    //Auction Bidding Section//
+    
+    
+    
+    //Auction Bidding Section//
+    
+    
 });
 
 
