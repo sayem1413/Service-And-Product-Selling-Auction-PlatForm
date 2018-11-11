@@ -175,27 +175,24 @@ $(function () {
     </div>
 </div>
 <script type="text/javascript">
-    {
-        {
-            -- ajax Form Add Comment--}
-    }
-    $("#add").click(function () {
-        $.ajax({
-            type: 'POST',
-            url: "{{url('addComment')}}",
-            data: {
-                '_token': $('input[name=_token]').val(),
-                'commentBody': $('textarea[name=commentBody]').val(),
-                'user_id': $('input[name=user_id]').val(),
-                'userName': $('input[name=userName]').val(),
-                'auction_id': $('input[name=auction_id]').val()
-            },
-            success: function (data) {
-                $('#comments').append("<p><a href='#'><b>" + data.userName + " </b></a> " + data.commentBody + "</p>");
-            },
-        });
-        $('#commentBody').val('');
+    {{-- ajax Form Add Comment--}}
+  $("#add").click(function() {
+    $.ajax({
+      type: 'POST',
+      url: "{{url('addComment')}}",
+      data: {
+        '_token': $('input[name=_token]').val(),
+        'commentBody': $('textarea[name=commentBody]').val(),
+        'user_id': $('input[name=user_id]').val(),
+        'userName': $('input[name=userName]').val(),
+        'auction_id': $('input[name=auction_id]').val()
+      },
+      success: function(data){
+        $('#comments').append("<p><a href='#'><b>"+ data.userName +" </b></a> "+ data.commentBody +"</p>");
+      },
     });
+    $('#commentBody').val('');
+  });
 
 // function Edit POST
 //$(document).on('click', '.edit-modal', function() {
