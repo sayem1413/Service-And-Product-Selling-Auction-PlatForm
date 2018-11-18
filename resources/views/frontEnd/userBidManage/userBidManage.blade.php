@@ -1,7 +1,7 @@
 @extends('frontEnd.master1')
 
 @section('title')
-Edit Comment
+User Bids Manage
 @endsection
 
 @section('mainContent')
@@ -88,47 +88,47 @@ Edit Comment
             </div>
         </div>
         <div class="col-md-9">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4>Your Profile</h4>
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            {!! Form::open(['url'=>'/user-comment/update/', 'method'=>'POST', 'class'=>'form-horizontal'])!!}
-                            
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <input type="hidden" value="{{$comment->id}}" id="id" name="id">
-                                        <input type="hidden" value="{{$comment->auction_id}}" id="auction_id" name="auction_id">
-                                        <input type="hidden" value="{{Auth::user()->id}}" id="user_id" name="user_id">
-                                        <input id="userName" name="userName" class="form-control here" type="hidden" value="{{Auth::user()->name}}">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="username" class="col-sm-4">Your Comment</label> 
-                                    <div class="col-sm-8">
-                                        <textarea class="form-control" name="commentBody" id="commentBody" cols="15" style="height: 100px; width: 320px;">{{$comment->commentBody}}</textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6"></div>
-                                    <div class="col-sm-6">
-                                        <button name="submit" type="submit" class="btn btn-success">Update Comment</button>
-                                    </div>
-                                </div>
-                            {!! Form::close()!!}
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
+            <hr/>
+            <h4 class="text-center text-success">{{Session::get('message')}}</h4>
+            <hr/>
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Bid Id</th>
+                        <th>Auction Title</th>
+                        <th>Auction Description</th>
+                        <th>Auction Price</th>
+                        <th>Bidding Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($bids as $bid)
+                    <tr>
+                        <td scope="row">{{$bid->id}}</td>
+                        <td>{{$bid->auctionTitle}}</td>
+                        <td>{{$bid->auctionDescription}}</td>
+                        <td>{{$bid->price}}</td>
+                        <td>{{$bid->fee}}</td>
+                        <td>
+                            <a href="{{url('/user/edit-bid/'.$bid->id)}}" class="btn btn-success">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a href="{{url('/user/delete-bid/'.$bid->id)}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete this?')">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            {{$bids->links()}}
         </div>
     </div>
 </div>
+<hr/>
+<hr/>
+<br/>
+<br/>
 @endsection
 

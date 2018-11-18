@@ -41,6 +41,9 @@
                                 <li>
                                     <a href="{{url('/auctions-manage/user/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Manage Advertisements</a>
                                 </li>
+                                <li>
+                                    <a href="{{url('/user/manage-bids/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Manage Your Bids</a>
+                                </li>
                                 @if(count($cardInfo) === 1)
                                 <li>
                                     <a href="{{url('/user/payment-form/edit/')}}"><i class="fa fa-credit-card"></i> Edit Card Info</a>
@@ -174,6 +177,9 @@
                                 </li>
                                 <li>
                                     <a href="{{url('/auctions-manage/user/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Manage Advertisements</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/user/manage-bids/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Manage Your Bids</a>
                                 </li>
                                 @if(count($cardInfo) === 1)
                                 <li>

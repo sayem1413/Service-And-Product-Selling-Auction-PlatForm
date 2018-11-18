@@ -15,7 +15,7 @@ class CreateCardInfosTable extends Migration
     {
         Schema::create('card_infos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('cardNumber');
+            $table->string('cardNumber')->unique();
             $table->string('cvv');
             $table->date('expirationDate');
             $table->bigInteger('user_id');

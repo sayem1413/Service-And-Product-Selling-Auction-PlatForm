@@ -109,12 +109,17 @@ Route::group(['middleware' => 'AuthenticateUser'], function() {
     
     Route::get('/user/payment-form/edit/', 'FrontEnd\CardPaymentController@editPaymentCardInfo');
     Route::post('/user/payment-info/update/', 'FrontEnd\CardPaymentController@updatePaymentCardInfo');
+    Route::get('/user/payment-info/delete/{id}', 'FrontEnd\CardPaymentController@deletePaymentCardInfo');
     
     //Credit Card Section//
     
     //Auction Bidding Section//
     
-    
+    Route::post('/user-bid/auction/{id}', 'FrontEnd\BidController@createBid');
+    Route::get('/user/manage-bids/{id}', 'FrontEnd\BidController@manageBids');
+    Route::get('/user/edit-bid/{id}', 'FrontEnd\BidController@editBid');
+    Route::post('/user-bid/update/', 'FrontEnd\BidController@updateBid');
+    Route::get('/user/delete-bid/{id}', 'FrontEnd\BidController@deleteBid');
     
     //Auction Bidding Section//
     

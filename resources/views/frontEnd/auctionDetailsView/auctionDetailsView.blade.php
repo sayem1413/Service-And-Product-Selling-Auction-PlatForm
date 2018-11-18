@@ -11,7 +11,7 @@
         <div class="product-desc">
             <div class="col-md-7 product-view">
                 <h2>{{$auctionDetails->auctionTitle}}</h2>
-                <p> <i class="glyphicon glyphicon-map-marker"></i><a href="#">{{$auctionDetails->divisionName}}</a>, <a href="#">{{$auctionDetails->districtName}}</a>| Added at {{$auctionDetails->created_at}}, Ad ID: {{$auctionDetails->id}}</p>
+                <p> <i class="glyphicon glyphicon-map-marker"></i><a href="#">{{$auctionDetails->districtName}}</a>, <a href="#">{{$auctionDetails->divisionName}}</a>| Added at {{$auctionDetails->created_at}}, Ad ID: {{$auctionDetails->id}}</p>
                 <div class="flexslider">
                     <ul class="slides">
                         <li data-thumb="{{asset($auctionDetails->adImage1)}}">
@@ -30,13 +30,13 @@
                 <link rel="stylesheet" href="{{asset('public/frontEnd/css/flexslider.css')}}" type="text/css" media="screen" />
 
                 <script>
-// Can also be used with $(document).ready()
-$(window).load(function () {
-    $('.flexslider').flexslider({
-        animation: "slide",
-        controlNav: "thumbnails"
-    });
-});
+                // Can also be used with $(document).ready()
+                $(window).load(function () {
+                    $('.flexslider').flexslider({
+                        animation: "slide",
+                        controlNav: "thumbnails"
+                    });
+                });
                 </script>
                 <!-- //FlexSlider -->
                 <div class="product-details">
@@ -76,14 +76,14 @@ $(window).load(function () {
                 </div>
                 <script type="text/javascript" src="{{asset('public/frontEnd/timer/js/jQuery.countdownTimer.js')}}"></script>
                 <script type="text/javascript">
-$(function () {
+                    $(function () {
 
-    $('#future_date').countdowntimer({
-        dateAndTime: "{{$auctionDetails->auctionExpiryDate}}",
-        labelsFormat: true,
-        displayFormat: "YODHMS"
-    });
-});
+                        $('#future_date').countdowntimer({
+                            dateAndTime: "{{$auctionDetails->auctionExpiryDate}}",
+                            labelsFormat: true,
+                            displayFormat: "YODHMS"
+                        });
+                    });
                 </script>
                 <div class="interested text-center">
                     <h4>Interested in this Ad?<br/><small> Contact the Seller!</small></h4>
@@ -92,10 +92,25 @@ $(function () {
                     <h4><small> View seller profile!</small></h4>
                     <p><i class="glyphicon glyphicon-user"></i><a href="{{url('/user/profile-view/'.$auctionDetails->user_id)}}"><b>{{$auctionDetails->name}}</b></a> </p>
                 </div>
+                @if(count($bidWinner) === 1)
+                <div class="interested text-center">
+                    <h4>Auction has been completed!<small>Winner Profile: <a href="{{url('/user/profile-view/'.$winnerInfo->id)}}">{{$winnerInfo->name}}</a></small></h4>
+                    <p>The bidding price is: <strong>{{$bidWinner->fee}}</strong></p>
+                </div>
+                @else
                 <div class="interested text-center">
                     <h4>Interested for bid?<br/><small> Click the bid button!</small></h4>
+                    @guest
+                    <a href="{{route('login')}}" class="btn btn-success btn-block">Login for Place Bid</a>
+                    @else
+                    @if(count($isUserHasBid) === 1)
+                    <p><strong> You have already bid this auction. Your bidding price is: {{$isUserHasBid->fee}} </strong></p>
+                    @else
                     <button class="btn btn-success btn-block"  data-toggle="modal" data-target="#myModal">Place Bid</button>
+                    @endif
+                    @endguest
                 </div>
+                @endif
                 <div class="tips">
                     <h4>Safety Tips for Buyers</h4>
                     <ol>
@@ -153,6 +168,7 @@ $(function () {
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <form method="post" action="{{ url('/user-bid/auction/'.$auctionDetails->id) }}">
+        {{ csrf_field() }}
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -163,7 +179,6 @@ $(function () {
                     <p>
                         Min Bid: {{ $auctionDetails->price }}
                     </p>
-
                     <input name="price" type="number" min="{{ $auctionDetails->price }}" class="form-control" value="{{ $auctionDetails->price }}" required>
                 </div>
                 <div class="modal-footer">
@@ -176,23 +191,23 @@ $(function () {
 </div>
 <script type="text/javascript">
     {{-- ajax Form Add Comment--}}
-  $("#add").click(function() {
-    $.ajax({
-      type: 'POST',
-      url: "{{url('addComment')}}",
-      data: {
-        '_token': $('input[name=_token]').val(),
-        'commentBody': $('textarea[name=commentBody]').val(),
-        'user_id': $('input[name=user_id]').val(),
-        'userName': $('input[name=userName]').val(),
-        'auction_id': $('input[name=auction_id]').val()
-      },
-      success: function(data){
-        $('#comments').append("<p><a href='#'><b>"+ data.userName +" </b></a> "+ data.commentBody +"</p>");
-      },
+    $("#add").click(function() {
+      $.ajax({
+        type: 'POST',
+        url: "{{url('addComment')}}",
+        data: {
+          '_token': $('input[name=_token]').val(),
+          'commentBody': $('textarea[name=commentBody]').val(),
+          'user_id': $('input[name=user_id]').val(),
+          'userName': $('input[name=userName]').val(),
+          'auction_id': $('input[name=auction_id]').val()
+        },
+        success: function(data){
+          $('#comments').append("<p><a href='#'><b>"+ data.userName +" </b></a> "+ data.commentBody +"</p>");
+        },
+      });
+      $('#commentBody').val('');
     });
-    $('#commentBody').val('');
-  });
 
 // function Edit POST
 //$(document).on('click', '.edit-modal', function() {

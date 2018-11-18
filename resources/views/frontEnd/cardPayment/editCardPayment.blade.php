@@ -25,9 +25,15 @@ Edit Payment Card
                         <li>
                             <a href="{{url('/profile')}}"><i class="fa fa-home"></i> My Profile<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                @if (count($userAddress) === 1 && count($userInfo) === 1)
                                 <li>
                                     <a href="{{url('/user-profile/edit/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Edit Profile</a>
                                 </li>
+                                @else
+                                <li>
+                                    <a href="{{url('/user-profile/create/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Create Profile Info</a>
+                                </li>
+                                @endif
                                 <li>
                                     <a href="#"><span class="fa fa-list"></span> Activity Comment & Favourites</a>
                                     <ul class="nav nav-second-level">
@@ -38,6 +44,9 @@ Edit Payment Card
                                 </li>
                                 <li>
                                     <a href="{{url('/auctions-manage/user/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Manage Advertisements</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/user/manage-bids/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Manage Your Bids</a>
                                 </li>
                                 @if(count($cardInfo) === 1)
                                 <li>
@@ -67,17 +76,17 @@ Edit Payment Card
                                 <label for="cardNumber">Card Number</label>
                                 <input type="hidden" value="{{Auth::user()->id}}" id="user_id" name="user_id">
                                 <input type="text" class="form-control" value="{{$cardInfo->cardNumber}}" id="cardNumber" name="cardNumber">
-                                <span id="cardNumberError"></span>
+                                <span id="cardNumberError">{{$errors->has('cardNumber')?$errors->first('cardNumber'):''}}</span>
                             </div>
                             <div class="form-group">
                                 <label for="cvv">CVV</label>
                                 <input type="text" value="{{$cardInfo->cvv}}" class="form-control" id="cvv" name="cvv">
-                                <span id="cvvError"></span>
+                                <span id="cvvError">{{$errors->has('cvv')?$errors->first('cvv'):''}}</span>
                             </div>    
                             <div class="form-group" id="expiration-date" style="float: right;">
                                 <label>Expiration Date</label>
                                 <input type="date" class="form-control" value="{{$cardInfo->expirationDate}}" min="2019-01-01" id="expiration" name="expirationDate">
-                                <span id="expirationError"></span>
+                                <span id="expirationError">{{$errors->has('expirationDate')?$errors->first('expirationDate'):''}}</span>
 
                                 <!-- <select>
                                     <option value="01">January</option>
@@ -109,6 +118,9 @@ Edit Payment Card
                             </div>
                             <div class="form-group" id="pay-now">
                                 <button type="submit" class="btn btn-default" id="confirm-purchase">Save Information</button>
+                            </div>
+                            <div class="form-group" id="pay-now">
+                                <a href="{{url('/user/payment-info/delete/'.Auth::user()->id)}}" class="btn btn-danger btn-block" style="background-color: red;">Delete Information</a>
                             </div>
                         {!! Form::close()!!}
                     </div>

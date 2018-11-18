@@ -1,7 +1,7 @@
 @extends('frontEnd.master1')
 
 @section('title')
-Edit Comment
+Edit Bid
 @endsection
 
 @section('mainContent')
@@ -92,43 +92,40 @@ Edit Comment
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <h4>Your Profile</h4>
+                            <h4>Your Bid Edit Page</h4>
                             <hr>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            {!! Form::open(['url'=>'/user-comment/update/', 'method'=>'POST', 'class'=>'form-horizontal'])!!}
+                            {!! Form::open(['url'=>'/user-bid/update/', 'method'=>'POST', 'class'=>'form-horizontal'])!!}
                             
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <input type="hidden" value="{{$comment->id}}" id="id" name="id">
-                                        <input type="hidden" value="{{$comment->auction_id}}" id="auction_id" name="auction_id">
+                                        <input type="hidden" value="{{$bid->id}}" id="id" name="id">
+                                        <input type="hidden" value="{{$bid->auction_id}}" id="auction_id" name="auction_id">
                                         <input type="hidden" value="{{Auth::user()->id}}" id="user_id" name="user_id">
                                         <input id="userName" name="userName" class="form-control here" type="hidden" value="{{Auth::user()->name}}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="username" class="col-sm-4">Your Comment</label> 
+                                    <label for="bid" class="col-sm-4">Your Bidding Price</label> 
                                     <div class="col-sm-8">
-                                        <textarea class="form-control" name="commentBody" id="commentBody" cols="15" style="height: 100px; width: 320px;">{{$comment->commentBody}}</textarea>
+                                        <input type="number" value="{{$bid->fee}}" min="{{$auctionPrice->price}}" class="form-control" name="price" id="price" >
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-sm-6"></div>
-                                    <div class="col-sm-6">
-                                        <button name="submit" type="submit" class="btn btn-success">Update Comment</button>
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-8">
+                                        <button name="submit" type="submit" class="btn btn-success btn-block">Update Bid amount</button>
                                     </div>
                                 </div>
                             {!! Form::close()!!}
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 @endsection
-

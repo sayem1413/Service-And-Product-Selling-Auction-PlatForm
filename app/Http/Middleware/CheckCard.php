@@ -15,9 +15,9 @@ class CheckCard
      */
     public function handle($request, Closure $next)
     {
-        if(!$request->user()->can_pay)
+        if(!$request->user()->can_pay){
             return redirect('/user/payment-form/');
-        
+        }
         return $next($request);
     }
 }

@@ -17,8 +17,8 @@ class CreateBidsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('auction_id');
             $table->bigInteger('user_id');
-            $table->float('fee');
-            $table->float('paid');
+            $table->decimal('fee', 13, 2);
+            $table->decimal('paid', 13, 2);
             $table->boolean('won')->default('0');
             $table->timestamps();
         });
