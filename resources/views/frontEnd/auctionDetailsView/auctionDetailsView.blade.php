@@ -65,6 +65,9 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="itemtype">
+                        @if($currentTime > $auctionEndDateTime)
+                        <p class="p-price"><strong>Auction Time Over </strong></p>
+                        @else
                         <p class="p-price"><strong>Time Remaining: </strong></p>
                         <table style="border:0px;">
                             <tr>
@@ -72,6 +75,7 @@
                             </tr>
                         </table>
                         <div class="clearfix"></div>
+                        @endif
                     </div>
                 </div>
                 <script type="text/javascript" src="{{asset('public/frontEnd/timer/js/jQuery.countdownTimer.js')}}"></script>
@@ -92,7 +96,56 @@
                     <h4><small> View seller profile!</small></h4>
                     <p><i class="glyphicon glyphicon-user"></i><a href="{{url('/user/profile-view/'.$auctionDetails->user_id)}}"><b>{{$auctionDetails->name}}</b></a> </p>
                 </div>
+                @guest
+                @if($currentTime > $auctionEndDateTime)
                 @if(count($bidWinner) === 1)
+                <div class="interested text-center">
+                    <h4>Auction has been completed!<small>Winner Profile: <a href="{{url('/user/profile-view/'.$winnerInfo->id)}}">{{$winnerInfo->name}}</a></small></h4>
+                    <p>The bidding price is: <strong>{{$bidWinner->fee}}</strong></p>
+                </div>
+                @else
+                <div class="interested text-center">
+                    <h4>Auction has been completed!<small>But unfortunately! No one bid here!</small></h4>
+                    <p>The Auction price was: <strong>{{$auctionDetails->price}}</strong></p>
+                </div>
+                @endif
+                @else
+                <div class="interested text-center">
+                    <h4>Interested for bid?<br/><small> Click the bid button!</small></h4>
+                    <a href="{{route('login')}}" class="btn btn-success btn-block">Login for Place Bid</a>
+                </div>
+                @endif
+                @else
+                @if($currentTime > $auctionEndDateTime)
+                @if(count($bidWinner) === 1)
+                <div class="interested text-center">
+                    <h4>Auction has been completed!<small>Winner Profile: <a href="{{url('/user/profile-view/'.$winnerInfo->id)}}">{{$winnerInfo->name}}</a></small></h4>
+                    <p>The bidding price is: <strong>{{$bidWinner->fee}}</strong></p>
+                </div>
+                @else
+                <div class="interested text-center">
+                    <h4>Auction has been completed!<small>But unfortunately! No one bid here!</small></h4>
+                    <p>The Auction price was: <strong>{{$auctionDetails->price}}</strong></p>
+                </div>
+                @endif
+                @else
+                @if(count($isUserHasBid) === 1)
+                <div class="interested text-center">
+                    <h4>Your bid is completed!</h4>
+                    <p><strong> You have already bid this auction. Your bidding price is: {{$isUserHasBid->fee}} </strong></p>
+                </div>
+                @else
+                <div class="interested text-center">
+                    <h4>Interested for bid?<br/><small> Click the bid button!</small></h4>
+                    <button class="btn btn-success btn-block"  data-toggle="modal" data-target="#myModal">Place Bid</button>
+                </div>
+                @endif
+                @endif
+                @endguest
+                
+                
+                
+<!--                @if(count($bidWinner) === 1)
                 <div class="interested text-center">
                     <h4>Auction has been completed!<small>Winner Profile: <a href="{{url('/user/profile-view/'.$winnerInfo->id)}}">{{$winnerInfo->name}}</a></small></h4>
                     <p>The bidding price is: <strong>{{$bidWinner->fee}}</strong></p>
@@ -110,7 +163,7 @@
                     @endif
                     @endguest
                 </div>
-                @endif
+                @endif-->
                 <div class="tips">
                     <h4>Safety Tips for Buyers</h4>
                     <ol>
