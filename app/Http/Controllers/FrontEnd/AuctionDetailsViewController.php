@@ -32,17 +32,18 @@ class AuctionDetailsViewController extends Controller
         
         $auctionEndTime = AuctionTime::where('auction_id', $id)->first();
         $auctionEndDateTime = $auctionEndTime->auctionExpiryDate;
+//        echo $auctionEndDateTime;
         if(Auth::check()){
             $user_id = Auth::user()->id;
-            $isUserHasBid = Bid::where('user_id', $user_id)->where('auction_id', $id)->first();
-            if($currentTime > $auctionEndDateTime){
+            if($currentTime >= $auctionEndDateTime){ //End Time (User Authenticated)
+                $isUserHasBid = Bid::where('auction_id', $id)->first();
                 if($isUserHasBid){
-                $winnerPrice = Bid::where('auction_id', $id)->limit(1)->max('fee');
-                $bidWinner = Bid::where('fee', $winnerPrice)->where('auction_id', $id)->first();
-                $bidWinner->won = 1;
-                $bidWinner->save();
-                $winnerId = $bidWinner->user_id;
-                $winnerInfo = User::where('id', $winnerId)->first();
+                    $winnerPrice = Bid::where('auction_id', $id)->limit(1)->max('fee');
+                    $bidWinner = Bid::where('fee', $winnerPrice)->where('auction_id', $id)->first();
+                    $bidWinner->won = 1;
+                    $bidWinner->save();
+                    $winnerId = $bidWinner->user_id;
+                    $winnerInfo = User::where('id', $winnerId)->first();
                 } 
                 if(!$isUserHasBid) {
                     $isUserHasBid = NULL;
@@ -50,7 +51,8 @@ class AuctionDetailsViewController extends Controller
                     $winnerInfo = NULL;
                 }
             }
-            if($currentTime < $auctionEndDateTime){
+            if($currentTime < $auctionEndDateTime){ //Remaining Time (User Authenticated)
+                $isUserHasBid = Bid::where('auction_id', $id)->first();
                 if($isUserHasBid){
                     $isUserHasBid = Bid::where('user_id', $user_id)->where('auction_id', $id)->first();
                     $bidWinner = NULL;
@@ -65,22 +67,28 @@ class AuctionDetailsViewController extends Controller
             
         }
         if(!Auth::check()){
-            $isUserHasBid = Bid::where('auction_id', $id)->limit(1)->max('fee');
-            //print_r($isUserHasBid->auction_id);
-            if($isUserHasBid){
-                $winnerPrice = Bid::where('auction_id', $id)->limit(1)->max('fee');
-                $bidWinner = Bid::where('fee', $winnerPrice)->where('auction_id', $id)->first();
-                $bidWinner->won = 1;
-                $bidWinner->save();
-                $winnerId = $bidWinner->user_id;
-                $winnerInfo = User::where('id', $winnerId)->first();
+            if($currentTime >= $auctionEndDateTime){
+                $isUserHasBid = Bid::where('auction_id', $id)->limit(1)->max('fee');
+                //print_r($isUserHasBid->auction_id);
+                if($isUserHasBid){
+                    $winnerPrice = Bid::where('auction_id', $id)->limit(1)->max('fee');
+                    $bidWinner = Bid::where('fee', $winnerPrice)->where('auction_id', $id)->first();
+                    $bidWinner->won = 1;
+                    $bidWinner->save();
+                    $winnerId = $bidWinner->user_id;
+                    $winnerInfo = User::where('id', $winnerId)->first();
+                }
+                if(!$isUserHasBid){
+                    $isUserHasBid = NULL;
+                    $bidWinner = NULL;
+                    $winnerInfo = NULL;
+                }
             }
-            if(!$isUserHasBid){
+            if($currentTime < $auctionEndDateTime){
                 $isUserHasBid = NULL;
                 $bidWinner = NULL;
                 $winnerInfo = NULL;
             }
-            
         }
         
         $comments = Comment::where('auction_id', $id)->get();
