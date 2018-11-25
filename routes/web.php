@@ -80,6 +80,12 @@ Route::group(['middleware' => 'AuthenticateUser'], function() {
     Route::post('/user/auction-update', 'FrontEnd\UserAdManageController@updateUserAuction');
     Route::get('/user/auction-delete/{id}', 'FrontEnd\UserAdManageController@deleteUserAuction');
     
+    Route::get('/comments/auction/{id}', 'FrontEnd\UserAdManageController@auctionComments');
+    Route::get('/auction/delete-comment/{id}', 'FrontEnd\UserAdManageController@auctionCommentDelete');
+    
+    Route::get('/bids/auction/{id}', 'FrontEnd\UserAdManageController@auctionBids');
+    Route::get('/auction/delete-bid/{id}', 'FrontEnd\UserAdManageController@auctionBidDelete');
+    
     // Manage-Auction //
     
     // Manage-User Profile //

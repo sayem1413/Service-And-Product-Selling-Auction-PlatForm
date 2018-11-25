@@ -99,8 +99,9 @@ User Auction Manage
                         <th>Auction Description</th>
                         <th>Condition</th>
                         <th>Price</th>
-                        <th>Negotiation</th>
                         <th>Auction Pictures</th>
+                        <th>Auction's Comments</th>
+                        <th>Auction's Bids</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -112,10 +113,19 @@ User Auction Manage
                         <td>{{$userAuction->auctionDescription}}</td>
                         <td>{{$userAuction->condition == 1 ? 'Used':'New' }}</td>
                         <td>{{$userAuction->price}}</td>
-                        <td>{{$userAuction->negotiable == 1 ? 'Negotiable':'Fixed' }}</td>
                         <td><img src="{{asset($userAuction->adImage1)}}" alt="" height="100px" width="100px">
                             <br/><hr/><img src="{{asset($userAuction->adImage2)}}" alt="" height="100px" width="100px">
                             <br/><hr/><img src="{{asset($userAuction->adImage3)}}" alt="" height="100px" width="100px">
+                        </td>
+                        <td>
+                            <a href="{{url('/comments/auction/'.$userAuction->id)}}" class="btn btn-success">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{url('/bids/auction/'.$userAuction->id)}}" class="btn btn-success">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </a>
                         </td>
                         <td>
                             <a href="{{url('/user/auction-edit/'.$userAuction->id)}}" class="btn btn-success">

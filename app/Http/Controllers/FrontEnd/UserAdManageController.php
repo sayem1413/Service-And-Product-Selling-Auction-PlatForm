@@ -371,5 +371,38 @@ class UserAdManageController extends Controller {
 
         return redirect('/profile')->with('message', 'Sir, Your auction info deleted successfully! Thank you!');
     }
+    
+    
+    public function auctionComments($id) {
+        $cardInfo = CardInfo::where('user_id',$id)->first();
+        $userAddress = UserAddress::where('user_id',$id)->first();
+        $userInfo = UserInfo::where('user_id',$id)->first();
+        
+        $auctionComments = Comment::where('auction_id',$id)->paginate(15);
+        return view('frontEnd.userAuctions.auctionComments',['auctionComments' => $auctionComments, 'cardInfo' => $cardInfo, 'userAddress' => $userAddress, 'userInfo' => $userInfo]);
+    }
+    
+    public function auctionCommentDelete($id) {
+        $auctionComment = Comment::where('id',$id)->first();
+        $auction_id = $auctionComment->auction_id;
+        $auctionComment->delete();
+        return redirect()->to('/comments/auction/'.$auction_id)->with('message', 'Comment deleted successfully!');
+    }
+    
+    public function auctionBids($id) {
+        $cardInfo = CardInfo::where('user_id',$id)->first();
+        $userAddress = UserAddress::where('user_id',$id)->first();
+        $userInfo = UserInfo::where('user_id',$id)->first();
+        
+        $auctionBids = Bid::where('auction_id',$id)->paginate(15);
+        return view('frontEnd.userAuctions.auctionBids',['auctionBids' => $auctionBids, 'cardInfo' => $cardInfo, 'userAddress' => $userAddress, 'userInfo' => $userInfo]);
+    }
+    
+    public function auctionBidDelete($id) {
+        $auctionBid = Bid::where('id',$id)->first();
+        $auction_id = $auctionBid->auction_id;
+        $auctionBid->delete();
+        return redirect()->to('/bids/auction/'.$auction_id)->with('message', 'Bid deleted successfully!');
+    }
 
 }

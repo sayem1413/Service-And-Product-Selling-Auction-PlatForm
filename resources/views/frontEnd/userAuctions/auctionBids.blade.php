@@ -1,7 +1,7 @@
 @extends('frontEnd.master1')
 
 @section('title')
-User Bids Manage
+Manage Auction Bids
 @endsection
 
 @section('mainContent')
@@ -94,33 +94,24 @@ User Bids Manage
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th>Bid Id</th>
-                        <th>Auction Title</th>
-                        <th>Auction Description</th>
-                        <th>Auction Price</th>
+                        <th>ID</th>
                         <th>Bidding Price</th>
-                        <th>View Auction Details</th>
+                        <th>Bidder Profile</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($bids as $bid)
+                    @foreach($auctionBids as $auctionBid)
                     <tr>
-                        <td scope="row">{{$bid->id}}</td>
-                        <td>{{$bid->auctionTitle}}</td>
-                        <td>{{$bid->auctionDescription}}</td>
-                        <td>{{$bid->price}}</td>
-                        <td>{{$bid->fee}}</td>
+                        <td scope="row">{{$auctionBid->id}}</td>
+                        <td>{{$auctionBid->fee}}</td>
                         <td>
-                            <a href="{{url('/auction/details/'.$bid->auction_id)}}" class="btn btn-success">
+                            <a href="{{url('/user/profile-view/'.$auctionBid->user_id)}}" class="btn btn-info">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                             </a>
                         </td>
                         <td>
-                            <a href="{{url('/user/edit-bid/'.$bid->id)}}" class="btn btn-success">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </a>
-                            <a href="{{url('/user/delete-bid/'.$bid->id)}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete this?')">
+                            <a href="{{url('/auction/delete-bid/'.$auctionBid->id)}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete this bid?')">
                                 <span class="glyphicon glyphicon-trash"></span>
                             </a>
                         </td>
@@ -128,7 +119,7 @@ User Bids Manage
                     @endforeach
                 </tbody>
             </table>
-            {{$bids->links()}}
+            {{$auctionBids->links()}}
         </div>
     </div>
 </div>
@@ -137,4 +128,5 @@ User Bids Manage
 <br/>
 <br/>
 @endsection
+
 
