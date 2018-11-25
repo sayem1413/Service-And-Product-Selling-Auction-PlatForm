@@ -17,6 +17,7 @@ class CreateAuctionTimesTable extends Migration
             $table->bigIncrements('id');
             $table->date('auctionExpiryDate')->nullable();
             $table->bigInteger('auction_id');
+            $table->bigInteger('user_id');
             $table->timestamps();
         });
     }

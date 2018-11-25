@@ -22,6 +22,7 @@ use App\User;
 use App\UserAddress;
 use App\UserInfo;
 use App\Comment;
+use App\Bid;
 use App\CardInfo;
 use DB;
 use Intervention\Image\Facades\Image;
@@ -312,6 +313,7 @@ class UserAdManageController extends Controller {
         $auction_places = AuctionPlace::where('auction_id', $id)->first();
         $auctionImage = AuctionImage::where('auction_id', $id)->first();
         $sellerDetail = SellerDetail::where('auction_id', $id)->first();
+        $auctionTime = AuctionTime::where('auction_id', $id)->first();
         $user_id = SellerDetail::where('auction_id', $id)->select('user_id')->first();
         $comments = Comment::where('auction_id', $id)->get();
         if($comments){
@@ -319,7 +321,14 @@ class UserAdManageController extends Controller {
                 $comment->delete();
             }
         }
-
+        
+        $auctionsBids = Bid::where('auction_id', $id)->get();
+        if($auctionsBids){
+            foreach ($auctionsBids as $auctionsBid) {
+                $auctionsBid->delete();
+            }
+        }
+        
         $adImage1 = $auctionImage->adImage1;
         $adImage2 = $auctionImage->adImage2;
         $adImage3 = $auctionImage->adImage3;
@@ -353,6 +362,7 @@ class UserAdManageController extends Controller {
         
 
         $auction_detail->delete();
+        $auctionTime->delete();
         $auction_category->delete();
         $auction_places->delete();
         $auctionImage->delete();

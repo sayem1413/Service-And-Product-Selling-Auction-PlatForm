@@ -245,9 +245,18 @@ Route::group(['middleware' => 'admin_auth'], function() {
     /* Manage Users */
     Route::get('/admin/manage-users', 'Admin\UserManageController@manageUsers');
     Route::get('/admin/user-details/{id}', 'Admin\UserManageController@userDetails');
+    
+    Route::get('/admin/user-comments/{id}', 'Admin\UserManageController@userComments');
+    Route::get('/admin/delete-comment/{id}', 'Admin\UserManageController@userCommentDelete');
+    
+    Route::get('/admin/user-bids/{id}', 'Admin\UserManageController@userBids');
+    Route::get('/admin/delete-bid/{id}', 'Admin\UserManageController@userBidDelete');
+    
+    
     Route::get('/admin/user-auctions/{id}', 'Admin\UserManageController@userAuctions');
     Route::get('/admin/user-auction/show/{id}', 'Admin\UserManageController@userAuctionShow');
     Route::get('/admin/user-auction-delete/{id}', 'Admin\UserManageController@deleteUserAuction');
+    
     Route::get('/admin/delete-user/{id}', 'Admin\UserManageController@destroy');
     /* Manage Users */
     
@@ -255,6 +264,13 @@ Route::group(['middleware' => 'admin_auth'], function() {
     /* Manage Total Auctions */
     Route::get('/admin/auctions/manage', 'Admin\AuctionsManageController@manageAuctions');
     Route::get('/admin/auction/show/{id}', 'Admin\AuctionsManageController@showAuctionDetails');
+    
+    Route::get('/admin/auction-comments/{id}', 'Admin\AuctionsManageController@auctionComments');
+    Route::get('/admin/auction/delete-comment/{id}', 'Admin\AuctionsManageController@auctionCommentDelete');
+    
+    Route::get('/admin/auction-bids/{id}', 'Admin\AuctionsManageController@auctionBids');
+    Route::get('/admin/auction/delete-bid/{id}', 'Admin\AuctionsManageController@auctionBidDelete');
+    
     Route::get('/admin/auction/delete/{id}', 'Admin\AuctionsManageController@deleteAuction');
     /* Manage Total Auctions */
     

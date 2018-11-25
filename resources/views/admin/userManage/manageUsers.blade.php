@@ -17,6 +17,8 @@ Manage App Users
             <th>User Email</th>
             <th>User Details</th>
             <th>User Auctions</th>
+            <th>User Comments</th>
+            <th>User Bids</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -37,6 +39,16 @@ Manage App Users
                 </a>
             </td>
             <td>
+                <a href="{{url('admin/user-comments/'.$user->id)}}" class="btn btn-info">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                </a>
+            </td>
+            <td>
+                <a href="{{url('admin/user-bids/'.$user->id)}}" class="btn btn-info">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                </a>
+            </td>
+            <td>
                 <a href="{{url('/admin/delete-user/'.$user->id)}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete this user? If you delete this user, the all auctions of this user will be deleted!')">
                     <span class="glyphicon glyphicon-trash"></span>
                 </a>
@@ -45,7 +57,7 @@ Manage App Users
         @endforeach
     </tbody>
 </table>
-
+{{$users->links()}}
 @endsection
 
 

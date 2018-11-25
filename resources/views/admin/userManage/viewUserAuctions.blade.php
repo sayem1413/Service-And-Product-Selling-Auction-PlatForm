@@ -14,8 +14,9 @@
             <th>Auction Description</th>
             <th>Condition</th>
             <th>Price</th>
-            <th>Negotiation</th>
             <th>Auction Pictures</th>
+            <th>Comments</th>
+            <th>Bids</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -27,10 +28,19 @@
             <td>{{$userAuction->auctionDescription}}</td>
             <td>{{$userAuction->condition == 1 ? 'Used':'New' }}</td>
             <td>{{$userAuction->price}}</td>
-            <td>{{$userAuction->negotiable == 1 ? 'Negotiable':'Fixed' }}</td>
             <td><img src="{{asset($userAuction->adImage1)}}" alt="" height="100px" width="100px">
                 <br/><hr/><img src="{{asset($userAuction->adImage2)}}" alt="" height="100px" width="100px">
                 <br/><hr/><img src="{{asset($userAuction->adImage3)}}" alt="" height="100px" width="100px">
+            </td>
+            <td>
+                <a href="{{url('admin/auction-comments/'.$userAuction->id)}}" class="btn btn-success">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                </a>
+            </td>
+            <td>
+                <a href="{{url('admin/auction-bids/'.$userAuction->id)}}" class="btn btn-success">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                </a>
             </td>
             <td>
                 <a href="{{url('admin/user-auction/show/'.$userAuction->id)}}" class="btn btn-success">

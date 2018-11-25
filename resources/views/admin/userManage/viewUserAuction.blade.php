@@ -45,6 +45,10 @@ User Auction Details
         <th>{{$userAuctionById->auctionDescription}}</th>
     </tr>
     <tr>
+        <th>Auction Description</th>
+        <th>{{$userAuctionById->auctionExpiryDate}}</th>
+    </tr>
+    <tr>
         <th>Auction Location</th>
         <th>{{$userAuctionById->gpsLocation}}, {{$userAuctionById->upazilaName}}, {{$userAuctionById->districtName}}, {{$userAuctionById->divisionName}}</th>
     </tr>

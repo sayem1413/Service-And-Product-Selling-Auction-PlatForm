@@ -19,6 +19,8 @@ Manage Auctions
             <th>Price</th>
             <th>Negotiable</th>
             <th>Images</th>
+            <th>Comments</th>
+            <th>Bids</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -34,6 +36,16 @@ Manage Auctions
             <td><img src="{{asset($allAuction->adImage1)}}" alt="adImage1" height="100px" width="100px">
                 <br/><hr/><img src="{{asset($allAuction->adImage2)}}" alt="adImage2" height="100px" width="100px">
                 <br/><hr/><img src="{{asset($allAuction->adImage3)}}" alt="adImage3" height="100px" width="100px">
+            </td>
+            <td>
+                <a href="{{url('admin/auction-comments/'.$allAuction->id)}}" class="btn btn-success">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                </a>
+            </td>
+            <td>
+                <a href="{{url('admin/auction-bids/'.$allAuction->id)}}" class="btn btn-success">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                </a>
             </td>
             <td>
                 <a href="{{url('/admin/auction/show/'.$allAuction->id)}}" class="btn btn-success">

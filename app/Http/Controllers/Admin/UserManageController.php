@@ -6,13 +6,16 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Comment;
+use App\Bid;
 use App\SellerDetail;
 use App\AuctionDetail;
 use App\AuctionCategory;
 use App\AuctionPlace;
 use App\AuctionImage;
+use App\AuctionTime;
 use App\UserAddress;
 use App\UserInfo;
+use App\CardInfo;
 use DB;
 
 class UserManageController extends Controller
@@ -66,9 +69,9 @@ class UserManageController extends Controller
     
     public function userAuctions($id) {
         $userAuctions = DB::table('all_auction_details_views')
-                ->select('all_auction_details_views.*')
-                ->where('all_auction_details_views.user_id', $id)
-                ->paginate(2);
+                            ->select('all_auction_details_views.*')
+                            ->where('all_auction_details_views.user_id', $id)
+                            ->paginate(2);
         
         $user = User::where('id',$id)->first();
         
@@ -83,6 +86,31 @@ class UserManageController extends Controller
         
         return view('admin.userManage.viewUserAuction', ['userAuctionById' => $userAuctionById]);
     }
+    
+    public function userComments($id) {
+        $userComments = Comment::where('user_id',$id)->paginate(15);
+        return view('admin.userManage.userComments',['userComments' => $userComments]);
+    }
+    
+    public function userCommentDelete($id) {
+        $userComment = Comment::where('id',$id)->first();
+        $user_id = $userComment->user_id;
+        $userComment->delete();
+        return redirect()->to('/admin/user-comments/'.$user_id)->with('message', 'Comment deleted successfully!');
+    }
+    
+    public function userBids($id) {
+        $userBids = Bid::where('user_id',$id)->paginate(15);
+        return view('admin.userManage.userBids',['userBids' => $userBids]);
+    }
+    
+    public function userBidDelete($id) {
+        $userBid = Bid::where('id',$id)->first();
+        $user_id = $userBid->user_id;
+        $userBid->delete();
+        return redirect()->to('/admin/user-bids/'.$user_id)->with('message', 'Bid deleted successfully!');
+    }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -182,28 +210,24 @@ class UserManageController extends Controller
                 {
                     if($adImage1 == $adImage2 && $adImage2 == $adImage3){
                          unlink($adImage1);
-                         $auctionImage->delete();
                          break;
                     }
                     if($adImage1 == $adImage2)
                     {
                         unlink($adImage1);
                         unlink($adImage3);
-                        $auctionImage->delete();
                         break;
                     }
                     if($adImage1 == $adImage3)
                     {
                         unlink($adImage1);
                         unlink($adImage2);
-                        $auctionImage->delete();
                         break;
                     }
                     if($adImage2 == $adImage3)
                     {
                         unlink($adImage1);
                         unlink($adImage2);
-                        $auctionImage->delete();
                         break;
                     }
                     if($adImage1){
@@ -215,8 +239,8 @@ class UserManageController extends Controller
                     if($adImage3){
                          unlink($adImage3);
                     }
-                    $auctionImage->delete();
                 }
+                $auctionImage->delete();
             }
         }
         
@@ -245,9 +269,28 @@ class UserManageController extends Controller
             }
         }
         
+        $auctionTimes = AuctionTime::where('user_id', $id)->get();
+        if($auctionTimes){
+            foreach ($auctionTimes as $auctionTime) {
+                $auctionTime->delete();
+            }
+        }
+        
+        $userBids = Bid::where('user_id', $id)->get();
+        if($userBids){
+            foreach ($userBids as $userBid) {
+                $userBid->delete();
+            }
+        }
+        
+        $cardInfo = CardInfo::where('user_id', $id)->first();
+        if($cardInfo){
+            $cardInfo->delete();
+        }
+        
         $user->delete();
         
-        return redirect('/admin/manage-users')->with('message', 'User info deleted successfully!');
+        return redirect('/admin/manage-users')->with('message', 'User info and other user activity deleted successfully!');
     }
     
     public function deleteUserAuction($id) {
@@ -256,11 +299,21 @@ class UserManageController extends Controller
         $auction_places = AuctionPlace::where('auction_id', $id)->first();
         $auctionImage = AuctionImage::where('auction_id', $id)->first();
         $sellerDetail = SellerDetail::where('auction_id', $id)->first();
+        $auctionTimes = AuctionTime::where('auction_id', $id)->first();
         $user_id = SellerDetail::where('auction_id', $id)->select('user_id')->first();
         $comments = Comment::where('auction_id', $id)->get();
+        
         if($comments){
             foreach ($comments as $comment) {
                 $comment->delete();
+            }
+        }
+        
+        
+        $auctionsBids = Bid::where('auction_id', $id)->get();
+        if($auctionsBids){
+            foreach ($auctionsBids as $auctionsBid) {
+                $auctionsBid->delete();
             }
         }
 
@@ -302,9 +355,10 @@ class UserManageController extends Controller
         $auction_places->delete();
         $auctionImage->delete();
         $sellerDetail->delete();
+        $auctionTimes->delete();
         
 
-        return redirect('/admin/manage-users')->with('message', 'User info deleted successfully!');
+        return redirect('/admin/manage-users')->with('message', 'User Auction deleted successfully!');
     }
     
 }

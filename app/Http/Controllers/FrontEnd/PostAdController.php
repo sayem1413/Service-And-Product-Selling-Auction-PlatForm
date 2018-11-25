@@ -113,15 +113,18 @@ class PostAdController extends Controller {
         if($request->forAuction == 1 && !empty($request->auctionExpiryDate)){
             $auctionTime->auctionExpiryDate = $request->auctionExpiryDate;
             $auctionTime->auction_id =  Session::get('auction_id');
+            $auctionTime->user_id = $request->user_id;
             $auctionTime->save();
         }elseif($request->forAuction == 1 && empty($request->auctionExpiryDate))
         {
             $auctionTime->auction_id =  Session::get('auction_id');
+            $auctionTime->user_id = $request->user_id;
             $auctionTime->save();
         }
         else{
             $auctionTime->auctionExpiryDate = $currentTime;
             $auctionTime->auction_id =  Session::get('auction_id');
+            $auctionTime->user_id = $request->user_id;
             $auctionTime->save();
         }
         
