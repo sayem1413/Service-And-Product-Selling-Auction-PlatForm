@@ -91,6 +91,7 @@ Bid Winner Result
             <hr/>
             <h4 class="text-center text-success">{{Session::get('message')}}</h4>
             <hr/>
+            @if($currentTime >= $auctionEndDateTime)
             @if(count($bidWinner) === 1)
             <table class="table table-hover table-bordered">
                 <thead>
@@ -104,6 +105,9 @@ Bid Winner Result
                     <td>{{$bidWinner->fee}}</td>
                 </tbody>
             </table>
+            @else
+            <p>Sorry no one bid this auction! Update your auction time and other info!</p>
+            @endif
             @else
             <p>Result is not published yet!</p>
             <p><strong>Auction Time Remaining: </strong></p>
