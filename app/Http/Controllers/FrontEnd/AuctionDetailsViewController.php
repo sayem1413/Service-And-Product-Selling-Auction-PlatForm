@@ -22,17 +22,12 @@ use DB;
 class AuctionDetailsViewController extends Controller
 {
     public function index($id) {
-//        $winnerPrice = Bid::where('auction_id', $id)->limit(1)->max('fee');
-//        $bidWinner = Bid::where('fee', $winnerPrice)->where('auction_id', $id)->first();
-//        $bidWinner->won = 1;
-//        $bidWinner->save();
-//        print_r($bidWinner->won);
+
         
         $currentTime = Carbon::now()->format('Y-m-d');
         
         $auctionEndTime = AuctionTime::where('auction_id', $id)->first();
         $auctionEndDateTime = $auctionEndTime->auctionExpiryDate;
-//        echo $auctionEndDateTime;
         if(Auth::check()){
             $user_id = Auth::user()->id;
             if($currentTime >= $auctionEndDateTime){ //End Time (User Authenticated)
@@ -40,8 +35,10 @@ class AuctionDetailsViewController extends Controller
                 if($isUserHasBid){
                     $winnerPrice = Bid::where('auction_id', $id)->limit(1)->max('fee');
                     $bidWinner = Bid::where('fee', $winnerPrice)->where('auction_id', $id)->first();
-                    $bidWinner->won = 1;
-                    $bidWinner->save();
+                    if($bidWinner->won == 0){
+                        $bidWinner->won = 1;
+                        $bidWinner->save();
+                    }
                     $winnerId = $bidWinner->user_id;
                     $winnerInfo = User::where('id', $winnerId)->first();
                 } 
@@ -52,6 +49,15 @@ class AuctionDetailsViewController extends Controller
                 }
             }
             if($currentTime < $auctionEndDateTime){ //Remaining Time (User Authenticated)
+                $isHasBid = Bid::where('auction_id', $id)->limit(1)->max('fee'); //For Change start here
+                if($isHasBid){
+                    $winnerPriceChange = Bid::where('auction_id', $id)->limit(1)->max('fee');
+                    $bidWinnerChange = Bid::where('fee', $winnerPriceChange)->where('auction_id', $id)->first();
+                    if($bidWinnerChange->won == 1){
+                        $bidWinnerChange->won = 0;
+                        $bidWinnerChange->save();
+                    }
+                } // For Change end here
                 $isUserHasBid = Bid::where('auction_id', $id)->first();
                 if($isUserHasBid){
                     $isUserHasBid = Bid::where('user_id', $user_id)->where('auction_id', $id)->first();
@@ -69,12 +75,13 @@ class AuctionDetailsViewController extends Controller
         if(!Auth::check()){
             if($currentTime >= $auctionEndDateTime){
                 $isUserHasBid = Bid::where('auction_id', $id)->limit(1)->max('fee');
-                //print_r($isUserHasBid->auction_id);
                 if($isUserHasBid){
                     $winnerPrice = Bid::where('auction_id', $id)->limit(1)->max('fee');
                     $bidWinner = Bid::where('fee', $winnerPrice)->where('auction_id', $id)->first();
-                    $bidWinner->won = 1;
-                    $bidWinner->save();
+                    if($bidWinner->won == 0){
+                        $bidWinner->won = 1;
+                        $bidWinner->save();
+                    }
                     $winnerId = $bidWinner->user_id;
                     $winnerInfo = User::where('id', $winnerId)->first();
                 }
@@ -85,6 +92,15 @@ class AuctionDetailsViewController extends Controller
                 }
             }
             if($currentTime < $auctionEndDateTime){
+                $isHasBid = Bid::where('auction_id', $id)->limit(1)->max('fee'); //For Change start here
+                if($isHasBid){
+                    $winnerPriceChange = Bid::where('auction_id', $id)->limit(1)->max('fee');
+                    $bidWinnerChange = Bid::where('fee', $winnerPriceChange)->where('auction_id', $id)->first();
+                    if($bidWinnerChange->won == 1){
+                        $bidWinnerChange->won = 0;
+                        $bidWinnerChange->save();
+                    }
+                } // For Change end here
                 $isUserHasBid = NULL;
                 $bidWinner = NULL;
                 $winnerInfo = NULL;

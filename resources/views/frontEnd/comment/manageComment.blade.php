@@ -97,6 +97,7 @@
                         <th>Comment Activity</th>
                         <th>Time</th>
                         <th>Comment Body</th>
+                        <th>Commented auction details</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -106,6 +107,11 @@
                         <td scope="row">You commented on <a href="{{url('/user/profile-view/'.$comment->auction_user_id)}}"> {{$comment->name}}'s</a> Auction Post</td>
                         <td>{{$comment->created_at}}</td>
                         <td>{{$comment->commentBody}}</td>
+                        <td>
+                            <a href="{{url('/auction/details/'.$comment->auction_id)}}" class="btn btn-success">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </a>
+                        </td>
                         <td>
                             <a href="{{url('/user/comment-edit/'.$comment->id)}}" class="btn btn-success">
                                 <span class="glyphicon glyphicon-edit"></span>

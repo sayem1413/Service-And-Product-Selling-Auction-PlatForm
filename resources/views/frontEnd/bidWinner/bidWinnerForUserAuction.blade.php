@@ -1,7 +1,7 @@
-@extends('frontEnd.master1')
+@extends('frontEnd.master2')
 
 @section('title')
-User Auction Manage
+Bid Winner Result
 @endsection
 
 @section('mainContent')
@@ -91,67 +91,29 @@ User Auction Manage
             <hr/>
             <h4 class="text-center text-success">{{Session::get('message')}}</h4>
             <hr/>
+            @if(count($bidWinner) === 1)
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th>Auction Id</th>
-                        <th>Auction Title</th>
-<!--                        <th>Auction Description</th>-->
-                        <th>Condition</th>
-                        <th>Price</th>
-                        <th>Auction Pictures</th>
-                        <th>Auction's Comments</th>
-                        <th>Auction's Bids</th>
-                        <th>Bid winner</th>
-                        <th>Auction View</th>
-                        <th>Action</th>
+                        <th>Winner Profile</th>
+                        <th>Winner Price</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($userAuctions as $userAuction)
-                    <tr>
-                        <td scope="row">{{$userAuction->id}}</td>
-                        <td>{{$userAuction->auctionTitle}}</td>
-<!--                        <td>{{$userAuction->auctionDescription}}</td>-->
-                        <td>{{$userAuction->condition == 1 ? 'Used':'New' }}</td>
-                        <td>{{$userAuction->price}}</td>
-                        <td><img src="{{asset($userAuction->adImage1)}}" alt="" height="100px" width="100px">
-                            <br/><hr/><img src="{{asset($userAuction->adImage2)}}" alt="" height="100px" width="100px">
-                            <br/><hr/><img src="{{asset($userAuction->adImage3)}}" alt="" height="100px" width="100px">
-                        </td>
-                        <td>
-                            <a href="{{url('/comments/auction/'.$userAuction->id)}}" class="btn btn-success">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="{{url('/bids/auction/'.$userAuction->id)}}" class="btn btn-success">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="{{url('/bid-winner/auction/'.$userAuction->id)}}" class="btn btn-success">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="{{url('/auction/details/'.$userAuction->id)}}" class="btn btn-success">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="{{url('/user/auction-edit/'.$userAuction->id)}}" class="btn btn-success">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </a>
-                            <a href="{{url('/user/auction-delete/'.$userAuction->id)}}" class="btn btn-danger" onclick="return confirm('Are you sure to delete this?')">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </a>
-                        </td>
-                    </tr>
-                    @endforeach
+                    <td>View Winner Profile: <a href="{{url('/user/profile-view/'.$winnerInfo->id)}}">  {{$winnerInfo->name}}</a></td>
+                    <td>{{$bidWinner->fee}}</td>
                 </tbody>
             </table>
-            {{$userAuctions->links()}}
+            @else
+            <p>Result is not published yet!</p>
+            <p><strong>Auction Time Remaining: </strong></p>
+            <table style="border:0px;">
+                <tr>
+                    <td colspan="8"><span id="future_date"></span></td>
+                </tr>
+            </table>
+            <div class="clearfix"></div>
+            @endif
         </div>
     </div>
 </div>
@@ -159,4 +121,16 @@ User Auction Manage
 <hr/>
 <br/>
 <br/>
+<script type="text/javascript" src="{{asset('public/frontEnd/timer/js/jQuery.countdownTimer.js')}}"></script>
+<script type="text/javascript">
+    $(function () {
+
+        $('#future_date').countdowntimer({
+            dateAndTime: "{{$auctionEndDateTime}}",
+            labelsFormat: true,
+            displayFormat: "YODHMS"
+        });
+    });
+</script>
 @endsection
+

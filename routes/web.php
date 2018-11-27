@@ -129,6 +129,12 @@ Route::group(['middleware' => 'AuthenticateUser'], function() {
     
     //Auction Bidding Section//
     
+    //Auction Bid Winner//
+    
+    Route::get('/bid-winner/auction/{id}', 'FrontEnd\BidWinnerController@bidWinnerForUserAuction');
+    
+    //Auction Bid Winner//
+    
     
 });
 

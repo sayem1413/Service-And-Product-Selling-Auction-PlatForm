@@ -100,6 +100,7 @@ User Bids Manage
                         <th>Auction Price</th>
                         <th>Bidding Price</th>
                         <th>View Auction Details</th>
+                        <th>Biding Result</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -113,6 +114,11 @@ User Bids Manage
                         <td>{{$bid->fee}}</td>
                         <td>
                             <a href="{{url('/auction/details/'.$bid->auction_id)}}" class="btn btn-success">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{url('/bid-winner/auction/'.$bid->auction_id)}}" class="btn btn-success">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                             </a>
                         </td>
