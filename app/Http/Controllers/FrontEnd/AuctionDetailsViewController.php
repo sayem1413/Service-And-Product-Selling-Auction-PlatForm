@@ -23,6 +23,12 @@ class AuctionDetailsViewController extends Controller
 {
     public function index($id) {
 
+        $hasBids = DB::table('bids')
+                        ->join('users', 'users.id', '=', 'bids.user_id')
+                        ->select('bids.*', 'users.name')
+                        ->where('bids.auction_id', $id)
+                        ->orderBy('bids.fee', 'DESC')
+                        ->get();
         
         $currentTime = Carbon::now()->format('Y-m-d');
         
@@ -113,6 +119,6 @@ class AuctionDetailsViewController extends Controller
                             ->select('all_auction_details_views.*')
                             ->where('all_auction_details_views.id', $id)
                             ->first();
-        return view('frontEnd.auctionDetailsView.auctionDetailsView',['auctionDetails' => $auctionDetails, 'comments' => $comments, 'isUserHasBid' => $isUserHasBid, 'currentTime' => $currentTime,'auctionEndDateTime' => $auctionEndDateTime, 'bidWinner' => $bidWinner, 'winnerInfo' => $winnerInfo]);
+        return view('frontEnd.auctionDetailsView.auctionDetailsView',['auctionDetails' => $auctionDetails, 'comments' => $comments, 'isUserHasBid' => $isUserHasBid, 'currentTime' => $currentTime,'auctionEndDateTime' => $auctionEndDateTime, 'bidWinner' => $bidWinner, 'winnerInfo' => $winnerInfo, 'hasBids' => $hasBids]);
     }
 }
