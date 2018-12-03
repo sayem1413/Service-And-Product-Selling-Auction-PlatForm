@@ -286,6 +286,44 @@ Route::group(['middleware' => 'admin_auth'], function() {
     Route::get('/admin/auction/delete/{id}', 'Admin\AuctionsManageController@deleteAuction');
     /* Manage Total Auctions */
     
+    /* Search Auctions */
+    
+    Route::post('/admin/auction-search/', 'Admin\AuctionSearchController@auctionTitleSearch');
+    Route::get('/admin/auction-search/results/', 'Admin\AuctionSearchController@auctionTitleSearchResults');
+    
+    Route::post('/admin/auction-enddate/', 'Admin\AuctionSearchController@auctionEndDateSearch');
+    Route::get('/admin/auction-enddate/results/', 'Admin\AuctionSearchController@auctionEndDateSearchResults');
+    
+    Route::post('/admin/auction-ondate/', 'Admin\AuctionSearchController@auctionOnDateSearch');
+    Route::get('/admin/auction-ondate/results/', 'Admin\AuctionSearchController@auctionOnDateSearchResults');
+    
+    Route::post('/admin/auction-id/', 'Admin\AuctionSearchController@auctionIdSearch');
+    Route::get('/admin/search/auction-id/', 'Admin\AuctionSearchController@auctionIdSearchResults');
+    
+    Route::post('/admin/auction-price/', 'Admin\AuctionSearchController@auctionPriceSearch');
+    Route::get('/admin/price-range/results/', 'Admin\AuctionSearchController@auctionPriceSearchResults');
+    
+    /* Search Auctions */
+    
+    /* Admin Live Search */
+    
+    Route::get('/search-email', 'Admin\AdminLiveSearchController@searchEmail');
+    Route::get('/search-name', 'Admin\AdminLiveSearchController@searchName');
+    
+    /* Admin Live Search */
+    
+    /* Admin Search Users*/
+    
+    Route::post('/admin/email-search/', 'Admin\UserSearchController@userEmailSearch');
+    Route::get('/admin/email-search/results/', 'Admin\UserSearchController@userEmailSearchResults');
+    
+    Route::post('/admin/name-search/', 'Admin\UserSearchController@userNameSearch');
+    Route::get('/admin/name-search/results/', 'Admin\UserSearchController@userNameSearchResults');
+    
+    Route::post('/admin/user-id/', 'Admin\UserSearchController@userIdSearch');
+    Route::get('/admin/search/user-id/', 'Admin\UserSearchController@userIdSearchResults');
+    
+    /* Admin Search Users*/
     
 });
 

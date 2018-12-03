@@ -35,11 +35,13 @@ class AuctionsManageController extends Controller
 
     public function manageAuctions() {
         
+        $auctions = AuctionDetail::count();
         $allAuctions = DB::table('all_auction_details_views')
                 ->select('all_auction_details_views.*')
+                ->orderBy('all_auction_details_views.created_at', 'DESC')
                 ->paginate(2);
 
-        return view('admin.auctionsManage.auctionsManage', ['allAuctions' => $allAuctions]);
+        return view('admin.auctionsManage.auctionsManage', ['allAuctions' => $allAuctions, 'auctions' => $auctions]);
         
     }
     

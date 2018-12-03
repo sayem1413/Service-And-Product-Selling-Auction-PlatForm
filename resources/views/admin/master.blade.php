@@ -13,7 +13,8 @@
 
         <!-- Bootstrap Core CSS -->
         <link href="{{asset('public/admin/')}}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+        <link rel="stylesheet" href="{{asset('public/css/jquery-ui.min.css')}}">
+        
         <!-- MetisMenu CSS -->
         <link href="{{asset('public/admin/')}}/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 

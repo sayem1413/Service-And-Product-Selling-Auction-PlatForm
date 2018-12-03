@@ -45,7 +45,7 @@ User Auction Details
         <th>{{$userAuctionById->auctionDescription}}</th>
     </tr>
     <tr>
-        <th>Auction Description</th>
+        <th>Auction End Time</th>
         <th>{{$userAuctionById->auctionExpiryDate}}</th>
     </tr>
     <tr>

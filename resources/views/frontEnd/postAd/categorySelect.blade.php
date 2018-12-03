@@ -15,10 +15,10 @@ Select Category
     <div class="col-md-6">
         <h3 class="text-center"><u>Select Post Category and Location</u></h3>
         <h4 class="text-center text-success">{{Session::get('message')}}</h4>
-        <br/>
+<!--        <br/>
         <div class="offset-3">
             <button class="btn btn-success" onClick="getLocation()">Click here to get your GPS Location</button>
-        </div>
+        </div>-->
 
         <hr/>
         
@@ -224,6 +224,7 @@ Select Category
         });
     });
 
+    getLocation();
     var x = document.getElementById('output');
     var y = document.getElementById('error');
     function getLocation()
@@ -252,12 +253,32 @@ Select Category
             success: function (data) {
                 console.log(data);
                 x.value = data.results[0].address_components[1].long_name;
-//				x.innerHTML += data.results[0].address_components[2].long_name+", ";
-//				x.innerHTML += data.results[0].address_components[3].long_name+", ";
-//				x.innerHTML += data.results[0].address_components[4].long_name+", ";
-//				x.innerHTML += data.results[0].address_components[5].long_name;
+//                x.innerHTML += data.results[0].address_components[2].long_name+", ";
+//                x.innerHTML += data.results[0].address_components[3].long_name+", ";
+//                x.innerHTML += data.results[0].address_components[4].long_name+", ";
+//                x.innerHTML += data.results[0].address_components[5].long_name;
             }
         });
+
+//        $.ajax({
+//            type: 'post',
+//            url: '?gps=1',
+//            data: {
+//                    lng: position.coords.longitude,
+//                    lat: position.coords.latitude,
+//                    tzoffset: (new Date).getTimezoneOffset()/-60,
+//                    tzname: Intl.DateTimeFormat().resolvedOptions().timeZone,
+//                    tzdst: is_dst(),
+//                    time: time_str(),
+//            },
+//            error: function (request, status, error) {
+//                    $('#output').html("Your GPS is ok. But network connection failed")
+//            },
+//            success: function (data) {
+//                console.log(data);
+//                x.value = data.results[0].address_components[1].long_name;
+//            }
+//        });
 
     }
 
@@ -283,6 +304,22 @@ Select Category
 
         }
     }
+    
+//    function time_str(){
+//	var d=new Date
+//	return [d.getMonth()+1,
+//	d.getDate(),
+//	d.getFullYear()].join('-')+' '+
+//	[d.getHours(),
+//	d.getMinutes(),
+//	d.getSeconds()].join(':');
+//    }
+//    function is_dst(){
+//        var today=new Date()
+//        var jan = new Date(today.getFullYear(), 0, 1);
+//        var jul = new Date(today.getFullYear(), 6, 1);
+//        return today.getTimezoneOffset() < Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset()) ? "DST" : ''
+//    }
 
 </script>
 @endsection

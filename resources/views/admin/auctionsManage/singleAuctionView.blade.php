@@ -75,15 +75,19 @@ Single Auctions
         <th>{{$auctionViewById->user_id}}</th>
     </tr>
     <tr>
-        <th>Auction Category</th>
+        <th>Auction End Time</th>
+        <th>{{$auctionViewById->auctionExpiryDate}}</th>
+    </tr>
+    <tr>
+        <th>Auctioneer Name</th>
         <th>{{$auctionViewById->name}}</th>
     </tr>
     <tr>
-        <th>Auction Category</th>
+        <th>Auctioneer Email</th>
         <th>{{$auctionViewById->email}}</th>
     </tr>
     <tr>
-        <th>Auction Category</th>
+        <th>Auctioneer phone Number</th>
         <th>{{$auctionViewById->phoneNumber}}</th>
     </tr>
 

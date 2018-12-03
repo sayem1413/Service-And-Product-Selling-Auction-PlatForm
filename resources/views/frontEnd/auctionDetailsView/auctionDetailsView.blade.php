@@ -101,12 +101,17 @@
                             <p>The Auction price was: <strong>{{$auctionDetails->price}}</strong></p>
                         @endif
                         @else
+                        @if(Auth::user()->id == $auctionDetails->user_id)
+                            <h4>You can't bid here</h4>
+                            <p><strong>Because, you created this auction!</strong></p>
+                        @else
                         @if(count($isUserHasBid) === 1)
                             <h4>Your bid is completed!</h4>
                             <p><strong> You have already bid this auction. Your bidding price is: {{$isUserHasBid->fee}} </strong></p>
                         @else
                             <h4>Interested for bid?<br/><small> Click the bid button!</small></h4>
                             <button class="btn btn-success btn-block"  data-toggle="modal" data-target="#myModal">Place Bid</button>
+                        @endif
                         @endif
                         @endif
                         @endguest

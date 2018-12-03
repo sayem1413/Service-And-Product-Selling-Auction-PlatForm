@@ -22,7 +22,7 @@
                         source: 'http://localhost/www.resale.com/search'
                       });
                     } );
-                  </script>
+                </script>
             </div>
             <div class="col-md-6">
                 <div class="header-right">
