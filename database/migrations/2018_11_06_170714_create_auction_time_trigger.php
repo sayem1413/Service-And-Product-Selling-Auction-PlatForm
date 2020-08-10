@@ -13,10 +13,10 @@ class CreateAuctionTimeTrigger extends Migration
      */
     public function up()
     {
-        DB::unprepared('CREATE TRIGGER `auction_time_trigger` BEFORE INSERT ON `auction_times`
+        /* DB::unprepared('CREATE TRIGGER `auction_time_trigger` BEFORE INSERT ON `auction_times`
  FOR EACH ROW SET
     NEW.auctionExpiryDate = IFNULL(NEW.auctionExpiryDate, DATE_ADD(CURRENT_TIMESTAMP,INTERVAL 7 DAY))
-');
+'); */
     }
 
     /**
@@ -26,6 +26,6 @@ class CreateAuctionTimeTrigger extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP TRIGGER IF EXISTS auction_time_trigger');
+        /* DB::unprepared('DROP TRIGGER IF EXISTS auction_time_trigger'); */
     }
 }
