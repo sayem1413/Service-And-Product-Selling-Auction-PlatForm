@@ -25,7 +25,7 @@
                         <li>
                             <a href="{{url('/profile')}}"><i class="fa fa-home"></i> My Profile<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                @if (count($userAddress) === 1 && count($userInfo) === 1)
+                                @if ($userAddress && $userInfo)
                                     <li>
                                         <a href="{{url('/user-profile/edit/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Edit Profile</a>
                                     </li>
@@ -43,7 +43,7 @@
                                     <li>
                                         <a href="{{url('/user/manage-bids/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Manage Your Bids</a>
                                     </li>
-                                    @if(count($cardInfo) === 1)
+                                    @if($cardInfo)
                                     <li>
                                         <a href="{{url('/user/payment-form/edit/')}}"><i class="fa fa-credit-card"></i> Edit Card Info</a>
                                     </li>
@@ -70,7 +70,7 @@
                                     <li>
                                         <a href="{{url('/user/manage-bids/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Manage Your Bids</a>
                                     </li>
-                                    @if(count($cardInfo) === 1)
+                                    @if($cardInfo)
                                     <li>
                                         <a href="{{url('/user/payment-form/edit/')}}"><i class="fa fa-credit-card"></i> Edit Card Info</a>
                                     </li>

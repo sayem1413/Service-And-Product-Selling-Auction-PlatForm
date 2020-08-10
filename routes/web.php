@@ -56,7 +56,22 @@ Route::get('/auction/details/{id}', 'FrontEnd\AuctionDetailsViewController@index
 Route::get('/user/profile-view/{id}', 'FrontEnd\ProfileViewController@index');
 //Profile View//
 
-Auth::routes();
+ // Authentication Routes...
+ Route::get('login', 'FrontEnd\Auth\LoginController@showLoginForm')->name('login');
+ Route::post('login', 'FrontEnd\Auth\LoginController@login');
+ Route::post('logout', 'FrontEnd\Auth\LoginController@logout')->name('logout');
+
+ // Registration Routes...
+ Route::get('register', 'FrontEnd\Auth\RegisterController@showRegistrationForm')->name('register');
+ Route::post('register', 'FrontEnd\Auth\RegisterController@register');
+
+ // Password Reset Routes...
+ Route::get('password/reset', 'FrontEnd\Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+ Route::post('password/email', 'FrontEnd\Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+ Route::get('password/reset/{token}', 'FrontEnd\Auth\ResetPasswordController@showResetForm')->name('password.reset');
+ Route::post('password/reset', 'FrontEnd\Auth\ResetPasswordController@reset');
+
+// Auth::routes();
 Route::group(['middleware' => 'AuthenticateUser'], function() {
     Route::get('/profile', 'FrontEnd\UserHomeController@index')->name('home');
 

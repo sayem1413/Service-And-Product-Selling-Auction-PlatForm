@@ -25,10 +25,10 @@ class UserProfileManageController extends Controller
     }
     
     public function saveUserProfile(Request $request) {
-        $this->validate($request, [
-            'facebookLink' => 'nullable|url|regex:/http(?:s):\/\/(?:www\.)facebook\.com\/.+/i',
-            'phoneNumber' => 'nullable|regex:/(01)[0-9]{9}/',
-        ]);
+        // $this->validate($request, [
+        //     'facebookLink' => 'nullable|url|regex:/http(?:s):\/\/(?:www\.)facebook\.com\/.+/i',
+        //     'phoneNumber' => 'nullable|regex:/(01)[0-9]{9}/',
+        // ]);
         
         $userAddress = new UserAddress();
         $userAddress->division_id = $request->divisions;
@@ -98,10 +98,10 @@ class UserProfileManageController extends Controller
     }
     
     public function updateUserProfile(Request $request) {
-         $this->validate($request, [
-            'facebookLink' => 'nullable|url|regex:/http(?:s):\/\/(?:www\.)facebook\.com\/.+/i',
-            'phoneNumber' => 'nullable|regex:/(01)[0-9]{9}/',
-        ]);
+        //  $this->validate($request, [
+        //     'facebookLink' => 'nullable|url|regex:/http(?:s):\/\/(?:www\.)facebook\.com\/.+/i',
+        //     'phoneNumber' => 'nullable|regex:/(01)[0-9]{9}/',
+        // ]);
         
         $userAddress = UserAddress::where('user_id', $request->user_id)->first();
         if($request->has('divisions')){

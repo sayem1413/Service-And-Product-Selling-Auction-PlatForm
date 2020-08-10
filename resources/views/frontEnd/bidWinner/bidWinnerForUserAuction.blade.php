@@ -25,7 +25,7 @@ Bid Winner Result
                         <li>
                             <a href="{{url('/profile')}}"><i class="fa fa-home"></i> My Profile<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                @if (count($userAddress) === 1 && count($userInfo) === 1)
+                                @if ($userAddress && $userInfo)
                                     <li>
                                         <a href="{{url('/user-profile/edit/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Edit Profile</a>
                                     </li>
@@ -43,7 +43,7 @@ Bid Winner Result
                                     <li>
                                         <a href="{{url('/user/manage-bids/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Manage Your Bids</a>
                                     </li>
-                                    @if(count($cardInfo) === 1)
+                                    @if($cardInfo)
                                     <li>
                                         <a href="{{url('/user/payment-form/edit/')}}"><i class="fa fa-credit-card"></i> Edit Card Info</a>
                                     </li>
@@ -70,7 +70,7 @@ Bid Winner Result
                                     <li>
                                         <a href="{{url('/user/manage-bids/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Manage Your Bids</a>
                                     </li>
-                                    @if(count($cardInfo) === 1)
+                                    @if($cardInfo)
                                     <li>
                                         <a href="{{url('/user/payment-form/edit/')}}"><i class="fa fa-credit-card"></i> Edit Card Info</a>
                                     </li>
@@ -92,7 +92,7 @@ Bid Winner Result
             <h4 class="text-center text-success">{{Session::get('message')}}</h4>
             <hr/>
             @if($currentTime >= $auctionEndDateTime)
-            @if(count($bidWinner) === 1)
+            @if($bidWinner)
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
@@ -125,7 +125,7 @@ Bid Winner Result
 <hr/>
 <br/>
 <br/>
-<script type="text/javascript" src="{{asset('public/frontEnd/timer/js/jQuery.countdownTimer.js')}}"></script>
+<script type="text/javascript" src="{{asset('public/frontEnd/timer/js/jquery.countdownTimer.min.js')}}"></script>
 <script type="text/javascript">
     $(function () {
 

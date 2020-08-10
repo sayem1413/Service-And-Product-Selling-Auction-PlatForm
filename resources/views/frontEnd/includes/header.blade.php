@@ -29,7 +29,6 @@
                     <!-- Authentication Links -->
 
                     @guest
-                    <a class="account" href="{{url('/post-ad/category-area-select')}}" style="padding-right: 20px; margin-right: 20px;">Post Ad</a>
                     <a class="account" href="{{route('login')}}">Login</a>
                     @else
                     <a class="account" href="{{url('/post-ad/category-area-select')}}" style="padding-right: 20px; margin-right: 20px;">Post Ad</a>

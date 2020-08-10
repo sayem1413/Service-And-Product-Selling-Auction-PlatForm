@@ -6,7 +6,7 @@
 
 @section('mainContent')
 
-@if (count($userAddress) === 1 || count($userInfo) === 1)
+@if ($userAddress || $userInfo)
 <div class="container container-fluid" style="margin-top: 50px; margin-bottom: 200px; height: 600px;">
     <div class="row row-border">
         <div class="col-md-3">
@@ -44,7 +44,7 @@
                                 <li>
                                     <a href="{{url('/user/manage-bids/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Manage Your Bids</a>
                                 </li>
-                                @if(count($cardInfo) === 1)
+                                @if($cardInfo)
                                 <li>
                                     <a href="{{url('/user/payment-form/edit/')}}"><i class="fa fa-credit-card"></i> Edit Card Info</a>
                                 </li>
@@ -63,7 +63,7 @@
         <div class="col-md-9">
             <h4 class="text-center text-success">{{Session::get('message')}}</h4>
             <hr/>
-            @if(count($userInfo->profileImage) === 1)
+            @if($userInfo->profileImage)
             <div align="center"> <img alt="User Pic" src="{{asset($userInfo->profileImage)}}" height="200px" width="200px" alt="Profile Image" class="img-circle img-responsive"> </div>
             @else
             <div align="center"> <img alt="User Pic" src="{{asset('public/frontEnd/profile-thum/profile.png')}}" class="img-circle img-responsive"> </div>
@@ -97,17 +97,17 @@
                     </tr>
                     <tr>
                         <td>Home Address</td>
-                        <td><p>@if(count($userUpazila) === 1)
+                        <td><p>@if($userUpazila)
                             {{$userUpazila->upazilaName}},
                             @else
                             <p></p>
                             @endif
-                            @if(count($userDistrict) === 1)
+                            @if($userDistrict)
                             {{$userDistrict->districtName}},
                             @else
                             <p></p>
                             @endif 
-                            @if(count($userDivision) === 1)
+                            @if($userDivision)
                             {{$userDivision->divisionName}}
                             @else
                             <p></p>
@@ -181,7 +181,7 @@
                                 <li>
                                     <a href="{{url('/user/manage-bids/'.Auth::user()->id)}}"><i class="fa fa-edit"></i> Manage Your Bids</a>
                                 </li>
-                                @if(count($cardInfo) === 1)
+                                @if($cardInfo)
                                 <li>
                                     <a href="{{url('/user/payment-form/edit/')}}"><i class="fa fa-credit-card"></i> Edit Card Info</a>
                                 </li>
