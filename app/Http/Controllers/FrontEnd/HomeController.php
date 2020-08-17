@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FrontEnd;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
+use App\Division;
 use DB;
 
 class HomeController extends Controller
@@ -16,18 +17,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $file_path = public_path('data/divisions/divisions.csv');
-
-        // $excel = new \App\Helper\ExcelReader($file_path);
-
-        // if($excel->fileExists()) {
-
-        //     $data = $excel->getData();
-
-        //     foreach ($data as $aDivision) {
-        //         dd(ucwords($aDivision['bn_name']));
-        //     }
-        // }
         $categories = Category::all();
         $sliderMobiles = DB::table('all_auction_details_views')
                 ->where('all_auction_details_views.subcategory_id', '=', 1)

@@ -13,65 +13,63 @@ class DivisionSeeder extends Seeder
     public function run()
     {
         $file_path = public_path('data/divisions/divisions.csv');
-
         $excel = new \App\Helper\ExcelReader($file_path);
-
+        $divisionData = [];
         if($excel->fileExists()) {
-
-            $data = $excel->getData();
-
-            $this->insertDistricts($data);
-        }
-
-    }
-
-
-    protected function insertDistricts($data) {
-
-        foreach ($data as $aDistrict) {
-
-            $currentDivision = ucwords($aDistrict["division"]);
-            $currentDistrict = ucwords($aDistrict["district"]);
-            $currentDistrict = str_replace("District","",$currentDistrict);
-
-            if($currentDivision!="") {
-
-                $divisionQuery = Division::where("name",$currentDivision);
-
-                $divisionId = $divisionQuery->exists() ?  $divisionQuery->first()->id
-                    :   $this->insertDivision($currentDivision)->id;
-
-                if(!District::where('name', $currentDistrict)->exists()) {
-                    District::create([
-                        "name" => $currentDistrict,
-                        "division_id" => $divisionId
-                    ]);
-                }
+            $divisions = $excel->getData();
+            foreach ($divisions as $division) {
+                $divisionData[] = [
+                    'divisionName' => $division['name'],
+                    'banglaName' => $division['bangla_name'],
+                ];
             }
         }
+        $divisionInsert = Division::insert($divisionData);
     }
 
-    protected function insertDivision($divisionName) {
-        return Division::create(["name" => $divisionName]);
-    }
 
-    protected function extractDistricts($data) {
-        $districtArray = array();
+    // protected function insertDistricts($data)
+    // {
+    //     foreach ($data as $aDistrict) {
+    //         $currentDivision = ucwords($aDistrict["division"]);
+    //         $currentDistrict = ucwords($aDistrict["district"]);
+    //         $currentDistrict = str_replace("District","",$currentDistrict);
+    //         if($currentDivision!="") {
+    //             $divisionQuery = Division::where("name",$currentDivision);
+    //             $divisionId = $divisionQuery->exists() ?  $divisionQuery->first()->id
+    //                 :   $this->insertDivision($currentDivision)->id;
 
-        foreach ($data as $aDistrict) {
+    //             if(!District::where('name', $currentDistrict)->exists()) {
+    //                 District::create([
+    //                     "name" => $currentDistrict,
+    //                     "division_id" => $divisionId
+    //                 ]);
+    //             }
+    //         }
+    //     }
+    // }
 
-            $currentDivision = ucwords($aDistrict["division"]);
-            $currentDistrict = ucwords($aDistrict["district"]);
-            $currentDistrict = str_replace("District","",$currentDistrict);
+    // protected function insertDivision($divisionName) {
+    //     return Division::create(["name" => $divisionName]);
+    // }
 
-            if($currentDivision!="") {
-                if(!isset($districtArray[$currentDivision]))
-                    $districtArray[$currentDivision] = array();
+    // protected function extractDistricts($data) {
+    //     $districtArray = array();
 
-                array_push($districtArray[$currentDivision],$currentDistrict);
-            }
-        }
+    //     foreach ($data as $aDistrict) {
 
-        return $districtArray;
-    }
+    //         $currentDivision = ucwords($aDistrict["division"]);
+    //         $currentDistrict = ucwords($aDistrict["district"]);
+    //         $currentDistrict = str_replace("District","",$currentDistrict);
+
+    //         if($currentDivision!="") {
+    //             if(!isset($districtArray[$currentDivision]))
+    //                 $districtArray[$currentDivision] = array();
+
+    //             array_push($districtArray[$currentDivision],$currentDistrict);
+    //         }
+    //     }
+
+    //     return $districtArray;
+    // }
 }
