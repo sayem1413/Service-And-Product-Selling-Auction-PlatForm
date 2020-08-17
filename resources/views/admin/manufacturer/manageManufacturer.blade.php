@@ -15,7 +15,7 @@ Manage Manufacturers
             <th>ID</th>
             <th>Manufacturer Name</th>
             <th>Publication Status</th>
-            <th>Sub-Categories</th>
+            <!-- <th>Sub-Categories</th> -->
             <th>Action</th>
         </tr>
     </thead>
@@ -25,11 +25,11 @@ Manage Manufacturers
             <td scope="row">{{$manufacturer->id}}</td>
             <td>{{$manufacturer->manufacturerName}}</td>
             <td>{{$manufacturer->publicationStatus == 1 ? 'Published':'Unpublished' }}</td>
-            <td>
+            <!-- <td>
                 <a href="{{url('admin/manufacturer/sub-categories/'.$manufacturer->id)}}" class="btn btn-info">
                     <span class="glyphicon glyphicon-eye-open"></span>
                 </a>
-            </td>
+            </td> -->
             <td>
                 <a href="{{url('admin/manufacturer-edit/'.$manufacturer->id)}}" class="btn btn-success">
                     <span class="glyphicon glyphicon-edit"></span>

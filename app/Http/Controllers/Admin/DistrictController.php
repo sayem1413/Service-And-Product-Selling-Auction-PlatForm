@@ -50,7 +50,7 @@ class DistrictController extends Controller
             'division_id' => 'required|not_in:0',
             'districtName'=>'required',
             'banglaName' => 'required',
-            'website'=>'required',
+            // 'website'=>'required',
         ]);
         
         $district = new District();
@@ -113,7 +113,7 @@ class DistrictController extends Controller
             'division_id' => 'required|not_in:0',
             'districtName'=>'required',
             'banglaName' => 'required',
-            'website'=>'required',
+            // 'website'=>'required',
         ]);
         
         $district = District::find($request->districtId);

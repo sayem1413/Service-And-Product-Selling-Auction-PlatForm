@@ -47,8 +47,8 @@
             </ul>
             <!-- /.nav-second-level -->
         </li>
-<!--        <li>
-            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Manufacturer info<span class="fa arrow"></span></a>
+        <li>
+            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Manufacturer<span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
                 <li>
                     <a href="{{url('admin/manufacturer-add')}}">Add manufacturer</a>
@@ -57,9 +57,9 @@
                     <a href="{{url('admin/manufacturer-manage')}}">Manage manufacturer</a>
                 </li>
             </ul>
-             /.nav-second-level 
+             <!-- /.nav-second-level  -->
         </li>
-        <li>
+        <!-- <li>
             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Sub-Category wise Manufacturer info<span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
                 <li>
@@ -69,8 +69,8 @@
                     <a href="{{url('admin/subcategorymanufacturer-manage')}}">Manage Sub-Category wise manufacturer</a>
                 </li>
             </ul>
-             /.nav-second-level 
-        </li>
+             /.nav-second-level
+        </li> -->
         <li>
             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Colors Info<span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
@@ -81,8 +81,8 @@
                     <a href="{{url('admin/color-manage')}}">Manage Colors</a>
                 </li>
             </ul>
-             /.nav-second-level 
-        </li>-->
+             <!-- /.nav-second-level  -->
+        </li>
         <li>
             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Division Info<span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">

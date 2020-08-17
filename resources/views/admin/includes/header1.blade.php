@@ -98,11 +98,11 @@
             <i class="fa fa-user fa-fw"></i>Logout<i class="fa fa-caret-down"></i>
         </a>
         <ul class="dropdown-menu dropdown-user">
-            <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+            <!-- <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
             </li>
             <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
             </li>
-            <li class="divider"></li>
+            <li class="divider"></li> -->
             <li><a href="{{ url('admin/logout') }}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
                     {{ __('Logout') }}      <i class="fa fa-sign-out fa-wx"></i></a>

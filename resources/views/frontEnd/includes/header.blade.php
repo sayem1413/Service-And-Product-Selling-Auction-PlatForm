@@ -35,7 +35,7 @@
                     <a class="account" href="{{url('/profile')}}" style="padding-right: 20px; margin-right: 20px;">Profile</a>
                     <ul class="navbar-nav" style="padding-top: 27px;">
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link-text dropdown-toggle" href="{{url('/profile')}}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link-text dropdown-toggle list-style-none" href="{{url('/profile')}}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

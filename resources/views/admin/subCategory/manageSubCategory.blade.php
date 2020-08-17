@@ -16,7 +16,7 @@ Manage Sub-Category
             <th>Sub-Category Name</th>
             <th>Category Type</th>
             <th>Publication Status</th>
-            <th>Manufacturers</th>
+            <!-- <th>Manufacturers</th> -->
             <th>Action</th>
         </tr>
     </thead>
@@ -27,11 +27,11 @@ Manage Sub-Category
             <td>{{$subCategory->subCategoryName}}</td>
             <td>{{$subCategory->categoryName}}</td>
             <td>{{$subCategory->publicationStatus == 1 ? 'Published':'Unpublished' }}</td>
-            <td>
+            <!-- <td>
                 <a href="{{url('admin/manufactures/'.$subCategory->id)}}" class="btn btn-info">
                     <span class="glyphicon glyphicon-eye-open"></span>
                 </a>
-            </td>
+            </td> -->
             <td>
                 <a href="{{url('admin/sub-category-edit/'.$subCategory->id)}}" class="btn btn-success">
                     <span class="glyphicon glyphicon-edit"></span>
